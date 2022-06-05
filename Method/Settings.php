@@ -40,7 +40,7 @@ final class Settings extends MethodForm
 		$form2 = GDT_Form::make('accform_' . $form->getName());
 		$form2->addFields(...$module->getSettingsCache());
 		$form2->actions()->addFields(GDT_Submit::make());
-		$accordeon->addSection($module->renderName(), $form2);
+		$accordeon->addField($form2);
 		$form->addField($accordeon);
 	}
 	
