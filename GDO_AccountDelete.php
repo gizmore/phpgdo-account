@@ -5,6 +5,7 @@ use GDO\Core\GDO;
 use GDO\UI\GDT_Message;
 use GDO\User\GDT_Username;
 use GDO\User\GDO_User;
+use GDO\Core\GDT_CreatedAt;
 /**
  * An account deletion note.
  * 
@@ -22,8 +23,9 @@ final class GDO_AccountDelete extends GDO
 	public function gdoColumns() : array
 	{
 		return [
-			GDT_Username::make('accrm_username')->primary(),
+			GDT_Username::make('accrm_username')->notNull(),
 			GDT_Message::make('accrm_note')->notNull(),
+			GDT_CreatedAt::make('accrm_created'),
 		];
 	}
 

@@ -69,8 +69,8 @@ final class Delete extends MethodForm
 		}
 		else # Mark deleted
 		{
-			$user->saveVar('user_deleted_at', Time::getDate());
-			$user->saveVar('user_deleted_by', GDO_User::current()->getID());
+			$user->saveVar('user_deleted', Time::getDate());
+			$user->saveVar('user_deletor', GDO_User::current()->getID());
 			
 			# Report and logout
 			$this->message('msg_account_marked_deleted');
@@ -86,7 +86,7 @@ final class Delete extends MethodForm
 		return GDT_Response::make();
 	}
 	
-	private function onSendEmail(GDO_User $user, string $note, bool $prune)
+	private function onSendEmail(GDO_User $user, ?string $note, bool $prune)
 	{
 		foreach (GDO_User::admins() as $admin)
 		{
@@ -94,9 +94,8 @@ final class Delete extends MethodForm
 			$adminame = $admin->renderUserName();
 			$username = $user->renderUserName();
 			$operation = $prune ? tusr($admin, 'btn_prune_account') : tusr($admin, 'btn_delete_account');
-			$note = htmlspecialchars($note);
+			$note = $note ? html($note) : '';
 			$args = [$adminame, $username, $operation, $note, $sitename];
-			
 			$mail = Mail::botMail();
 			$mail->setSubject(tusr($admin, 'mail_subj_account_deleted', [$sitename, $username]));
 			$mail->setBody(tusr($admin, 'mail_body_account_deleted', $args));

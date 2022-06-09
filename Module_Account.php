@@ -7,6 +7,8 @@ use GDO\User\GDO_User;
 use GDO\Core\GDT_Template;
 use GDO\UI\GDT_Page;
 use GDO\UI\GDT_Link;
+use GDO\Core\GDT_Hook;
+use GDO\UI\GDT_Bar;
 
 /**
  * Member Account Changes.
@@ -53,6 +55,28 @@ final class Module_Account extends GDO_Module
 	##############
 	### Navbar ###
 	##############
+	private GDT_Bar $accountBar;
+	public function getTopNav()
+	{
+		if (!isset($this->accountBar))
+		{
+			$this->accountBar = GDT_Bar::make('account_bar')->horizontal();
+			GDT_Page::$INSTANCE->topResponse()->addField($this->accountBar);
+		}
+		return $this->accountBar;
+	}
+	
+	public function renderAccountBar()
+	{
+		$nav = $this->getTopNav();
+		$nav->addField(GDT_Link::make('link_settings')->href(href('Account', 'Settings')));
+		if ($this->cfgFeatureDeletion())
+		{
+			$nav->addField(GDT_Link::make('mt_account_delete')->href(href('Account', 'Delete')));
+		}
+		GDT_Hook::callHook('AccountBar', $nav);
+	}
+	
 	public function onInitSidebar() : void
 	{
 	    if ($this->cfgHookRightBar())
@@ -67,18 +91,6 @@ final class Module_Account extends GDO_Module
 	        }
 	        
 	    }
-	}
-	
-	public function renderAdminTabs()
-	{
-        GDT_Page::$INSTANCE->topBar()->addField(
-            GDT_Template::templatePHP('Account', 'admin_tabs.php'));
-	}
-
-	public function renderAccountTabs()
-	{
-        GDT_Page::$INSTANCE->topBar()->addField(
-            GDT_Template::templatePHP('Account', 'overview.php'));
 	}
 	
 }

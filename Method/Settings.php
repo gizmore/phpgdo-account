@@ -8,6 +8,7 @@ use GDO\Core\ModuleLoader;
 use GDO\Core\GDO_Module;
 use GDO\UI\GDT_Accordeon;
 use GDO\Form\GDT_Submit;
+use GDO\Account\Module_Account;
 
 final class Settings extends MethodForm
 {
@@ -16,6 +17,11 @@ final class Settings extends MethodForm
 		return [
 			GDT_Module::make('module')->installed(),
 		];
+	}
+	
+	public function beforeExecute() : void
+	{
+		Module_Account::instance()->renderAccountBar();
 	}
 	
 	/**
@@ -36,16 +42,13 @@ final class Settings extends MethodForm
 	
 	private function createFormForModule(GDT_Form $form, GDO_Module $module)
 	{
-		$accordeon = GDT_Accordeon::make('acc_' . $form->getName());
-		$form2 = GDT_Form::make('accform_' . $form->getName());
+		$form2 = GDT_Form::make('accform_' . $module->getName());
 		$form2->addFields(...$module->getSettingsCache());
 		$form2->actions()->addFields(GDT_Submit::make());
+		$accordeon = GDT_Accordeon::make('acc_' . $module->getName());
 		$accordeon->addField($form2);
 		$form->addField($accordeon);
 	}
-	
-
-
 	
 	
 }
