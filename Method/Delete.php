@@ -58,7 +58,7 @@ final class Delete extends MethodForm
 		}
 		
 		# Send note as email
-		$this->onSendEmail($user, $note);			
+		$this->onSendEmail($user, $note, $prune);			
 		
 		if ($prune) # kill
 		{
@@ -86,14 +86,14 @@ final class Delete extends MethodForm
 		return GDT_Response::make();
 	}
 	
-	private function onSendEmail(GDO_User $user, $note)
+	private function onSendEmail(GDO_User $user, string $note, bool $prune)
 	{
 		foreach (GDO_User::admins() as $admin)
 		{
 			$sitename = sitename();
-			$adminame = $admin->displayName();
-			$username = $user->displayNameLabel();
-			$operation = $this->prune ? tusr($admin, 'btn_prune_account') : tusr($admin, 'btn_delete_account');
+			$adminame = $admin->renderUserName();
+			$username = $user->renderUserName();
+			$operation = $prune ? tusr($admin, 'btn_prune_account') : tusr($admin, 'btn_delete_account');
 			$note = htmlspecialchars($note);
 			$args = [$adminame, $username, $operation, $note, $sitename];
 			

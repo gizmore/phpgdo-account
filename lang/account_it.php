@@ -48,7 +48,7 @@ return [
 	'err_demo_wait' => 'Prego attenda %s prima di cambiare le sue impostazioni!',
 	'email_fmt' => 'Formato e-Mail',
 	# #########################################################
-	'ft_account_delete' => 'Cancella account',
+	'mt_account_delete' => 'Cancella account',
 	'box_info_deletion' => 'Puó scegliere di disattivare il suo account e preservando la sua identitá su %s,
 	o di troncare il suo account con tutte le informazioni associate.
 	Se desidera, puó inviarci un messaggio con la raggione per cui desidera lasciarci.',
@@ -125,4 +125,8 @@ visto che le puó cambiare solo ogni %s.
 	'msg_mail_changed' => 'La tua email è stata cambiata in %s.',
 	# 6.11.0
 	'div_user_textual_settings' => 'Impostazioni testo',
+	
+	#7.0.0
+	'mt_account_settings' => 'Impostazioni',
+	
 ];

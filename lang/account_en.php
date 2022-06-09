@@ -47,7 +47,7 @@ return [
 	'err_demo_wait' => 'You have to wait %s before you can change your demographic options again.',
 	'email_fmt' =>'E-Mail Format',
 	##########################################################
-	'ft_account_delete' => 'Delete Account',
+	'mt_account_delete' => 'Delete Account',
 	'box_info_deletion' => 'You can choose between disabling your account, and preserving your identity on %s,
 Or completely prune your account and all information associated.
 If you like, you can leave us a message with feedback on why you wanted to leave.',
@@ -148,4 +148,7 @@ The %2$s Team',
 	'mdescr_account_access' => 'Review logins for your account.',
 	# 6.11.0
 	'div_user_textual_settings' => 'Textual settings',
+	
+	# 7.0.0
+	'mt_account_settings' => 'Settings',
 ];
