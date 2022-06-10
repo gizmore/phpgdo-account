@@ -4,7 +4,6 @@ namespace GDO\Account;
 use GDO\Core\GDO_Module;
 use GDO\Core\GDT_Checkbox;
 use GDO\User\GDO_User;
-use GDO\Core\GDT_Template;
 use GDO\UI\GDT_Page;
 use GDO\UI\GDT_Link;
 use GDO\Core\GDT_Hook;
@@ -69,12 +68,12 @@ final class Module_Account extends GDO_Module
 	public function renderAccountBar()
 	{
 		$nav = $this->getTopNav();
-		$nav->addField(GDT_Link::make('link_settings')->href(href('Account', 'Settings')));
+		$nav->addField(GDT_Link::make('link_settings')->href(href('Account', 'AllSettings')));
+		GDT_Hook::callHook('AccountBar', $nav);
 		if ($this->cfgFeatureDeletion())
 		{
 			$nav->addField(GDT_Link::make('mt_account_delete')->href(href('Account', 'Delete')));
 		}
-		GDT_Hook::callHook('AccountBar', $nav);
 	}
 	
 	public function onInitSidebar() : void
@@ -87,7 +86,7 @@ final class Module_Account extends GDO_Module
 	        {
 	            GDT_Page::$INSTANCE->rightBar()->addField(
 	                GDT_Link::make('btn_account')->href(
-	                    href('Account', 'Settings')));
+	                    href('Account', 'AllSettings')));
 	        }
 	        
 	    }
