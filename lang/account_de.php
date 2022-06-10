@@ -130,4 +130,5 @@ The %2$s Team',
 	
 	# 7.0.0
 	'mt_account_settings' => 'Einstellungen',
+	'mt_account_allsettings' => 'Alle Einstellungen',
 ];

@@ -151,4 +151,7 @@ The %2$s Team',
 	
 	# 7.0.0
 	'mt_account_settings' => 'Settings',
+	'mt_account_allsettings' => 'All Settings',
+
+	
 ];
