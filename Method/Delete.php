@@ -28,6 +28,11 @@ final class Delete extends MethodForm
 	public function getUserType() : string { return 'member'; }
 	public function isEnabled() : bool { return Module_Account::instance()->cfgFeatureDeletion(); }
 	
+	public function beforeExecute() : void
+	{
+		Module_Account::instance()->renderAccountBar();
+	}
+	
 	public function createForm(GDT_Form $form): void
 	{
 	    $form->text('box_info_deletion', [sitename()]);

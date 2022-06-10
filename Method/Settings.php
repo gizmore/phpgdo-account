@@ -42,10 +42,11 @@ final class Settings extends MethodForm
 	
 	private function createFormForModule(GDT_Form $form, GDO_Module $module)
 	{
-		$form2 = GDT_Form::make('accform_' . $module->getName());
+		$mname = $module->getName();
+		$form2 = GDT_Form::make("accform_{$mname}");
 		$form2->addFields(...$module->getSettingsCache());
-		$form2->actions()->addFields(GDT_Submit::make());
-		$accordeon = GDT_Accordeon::make('acc_' . $module->getName());
+		$form2->actions()->addFields(GDT_Submit::make("save_{$mname}"));
+		$accordeon = GDT_Accordeon::make("acc_{$mname}");
 		$accordeon->addField($form2);
 		$form->addField($accordeon);
 	}
