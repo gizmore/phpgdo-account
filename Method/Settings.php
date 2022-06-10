@@ -9,8 +9,16 @@ use GDO\Core\GDO_Module;
 use GDO\UI\GDT_Accordeon;
 use GDO\Form\GDT_Submit;
 use GDO\Account\Module_Account;
+use GDO\Core\Method;
 
-final class Settings extends MethodForm
+/**
+ * Offers users to change and view their settings.
+ * 
+ * @author gizmore
+ * @version 7.0.0
+ * @since 6.1.0
+ */
+final class Settings extends Method
 {
 	public function gdoParameters() : array
 	{
@@ -50,6 +58,12 @@ final class Settings extends MethodForm
 		$accordeon->addField($form2);
 		$form->addField($accordeon);
 	}
+	
+	public function execute()
+	{
+	}
+
+
 	
 	
 }
