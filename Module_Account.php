@@ -81,8 +81,7 @@ final class Module_Account extends GDO_Module
 	    if ($this->cfgHookRightBar())
 	    {
 	        $user = GDO_User::current();
-	        if ( ($user->isMember()) ||
-	            ($user->isGuest() && $this->cfgAllowGuests()) )
+	        if ($user->isUser())
 	        {
 	            GDT_Page::$INSTANCE->rightBar()->addField(
 	                GDT_Link::make('btn_account')->href(

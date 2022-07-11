@@ -129,5 +129,6 @@ visto che le puó cambiare solo ogni %s.
 	#7.0.0
 	'mt_account_settings' => 'Impostazioni',
 	'mt_account_allsettings' => 'Tutti Impostazioni',
+	'mt_account_config' => 'Configurazione',
 	
 ];
