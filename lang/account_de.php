@@ -26,7 +26,6 @@ return [
 	'ft_account_settings' => '%s Einstellungen',
 	'div_user_settings' => 'Persönliche %s-Einstellungen',
 	'div_variables' => 'Ihre %s Variablen',
-	'msg_settings_saved' => 'Ihre Einstellungen im %s Modul wurden übernommen.<br/>%s',
 	# #########################################################
 	'ft_account_form' => 'Konto',
 	'infobox_account_form' => 'Hinweis: Ihren &quot;Realnamen&quot; können Sie nur einmalig setzen und <b>er ist öffentlich sichtbar</b>.<br/>Ihre Demographischen Optionen können sie alle %s ändern.',
@@ -132,4 +131,9 @@ The %2$s Team',
 	'mt_account_settings' => 'Einstellungen',
 	'mt_account_allsettings' => 'Alle Einstellungen',
 	'mt_account_config' => 'Konfiguration',
+	'msg_settings_saved' => 'Ihre Einstellungen für das %s Modul wurden übernommen:<br/>%s',
+	'msg_setting_changed' => '%s changed from %s to %s.',
+	
+	'btn_save_settings' => 'Save %s settings',
+	
 ];

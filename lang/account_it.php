@@ -26,7 +26,6 @@ return [
 	'ft_account_settings' => '%s Impostazioni',
 	'div_user_settings' => '%s-Impostazioni personali',
 	'div_variables' => 'Le vostre %s variabili',
-	'msg_settings_saved' => 'Le vostre impostazioni sono state riportate nel %s modulo.<br/>%s',
 	# #########################################################
 	'ft_account_form' => 'Conto',
 	'infobox_account_form' => 'Avviso: Il vostro &quot;nome reale&quot; possiamo inserirlo solo una volta ed <b>è pubblicamente visibile</b>.<br/>La sua opzione demografica puó cambiarla ogni %s.',
@@ -130,5 +129,8 @@ visto che le puó cambiare solo ogni %s.
 	'mt_account_settings' => 'Impostazioni',
 	'mt_account_allsettings' => 'Tutti Impostazioni',
 	'mt_account_config' => 'Configurazione',
+	'msg_setting_changed' => '%s changed from %s to %s.',
+	'msg_settings_saved' => 'Le vostre impostazioni sono state riportate nel %s modulo.<br/>%s',
 	
+	'btn_save_settings' => 'Save %s settings',
 ];
