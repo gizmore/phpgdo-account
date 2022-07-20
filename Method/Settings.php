@@ -44,8 +44,8 @@ final class Settings extends MethodForm
 			if ($gdt instanceof GDT_Field)
 			{
 				$gdt->initial($module->settingVar($gdt->getName()));
+				$form->addField($gdt);
 			}
-			$form->addField($gdt);
 		}
 		$form->addField(GDT_AntiCSRF::make());
 		$form->actions()->addFields(
