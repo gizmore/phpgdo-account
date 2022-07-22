@@ -60,7 +60,7 @@ final class Module_Account extends GDO_Module
 		if (!isset($this->accountBar))
 		{
 			$this->accountBar = GDT_Bar::make('account_bar')->horizontal();
-			GDT_Page::$INSTANCE->topResponse()->addField($this->accountBar);
+			GDT_Page::instance()->topResponse()->addField($this->accountBar);
 		}
 		return $this->accountBar;
 	}

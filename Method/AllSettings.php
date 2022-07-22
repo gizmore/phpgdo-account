@@ -43,10 +43,11 @@ final class AllSettings extends Method
 		{
 			if ($module->getUserSettings())
 			{
-				$method = Settings::make()->addInput('module', $module->getName());
-				$method->addInputs($this->getInputs());
-				$gdtmet = GDT_Method::make()->method($method);
-				$response->addField($gdtmet->execute(false));
+				$inputs = $this->getInputs();
+				$inputs['module'] = $module->getName();
+				$method = Settings::make();#->withAppliedInputs($inputs);
+				$gdtmet = GDT_Method::make()->inputs($inputs)->method($method);
+				$response->addField($gdtmet->execute(true));
 			}
 		}
 		return $response;
