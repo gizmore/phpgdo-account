@@ -23,11 +23,11 @@ return [
 	'cfg_feature_demographic_mail_confirm' => 'Email Änderungen per Email bestätigen?',
 	# #########################################################
 	'box_content_account_settings' => 'Hier finden Sie alle Ihre Einstellungen.',
-	'ft_account_settings' => '%s Einstellungen',
+	'mt_account_settings' => '%s Einstellungen',
 	'div_user_settings' => 'Persönliche %s-Einstellungen',
 	'div_variables' => 'Ihre %s Variablen',
 	# #########################################################
-	'ft_account_form' => 'Konto',
+	'mt_account_form' => 'Konto',
 	'infobox_account_form' => 'Hinweis: Ihren &quot;Realnamen&quot; können Sie nur einmalig setzen und <b>er ist öffentlich sichtbar</b>.<br/>Ihre Demographischen Optionen können sie alle %s ändern.',
 	'section_login' => 'Kontoinformationen',
 	'section_email' => 'E-Mail Einstellungen',
@@ -56,7 +56,7 @@ If you like, you can leave us a message with feedback on why you wanted to leave
 	'msg_account_marked_deleted' => 'Your account has been marked as deleted.',
 	'msg_account_pruned' => 'Your account has been wiped from the database.',
 	# #########################################################
-	'ft_change_mail' => 'Change E-Mail',
+	'mt_change_mail' => 'Change E-Mail',
 	'err_email_retype' => 'Please recheck your E-Mail, as you did not retype it correctly.',
 	'btn_changemail' => 'Change E-Mail',
 	# #########################################################
@@ -123,7 +123,7 @@ The %2$s Team',
 	'confirm_account_prune' => 'Möchten Sie Ihr Konto wirklich vollständig entfernen? Dies lässt sich nicht rückgängig machen!',
 	'confirm_account_delete' => 'Möchten Sie Ihr Konto wirklich als gelöscht markieren? Dies ist nicht endgültig. Ein Mitarbeiter kann Ihr Konto später wieder reaktivieren.',
 	'msg_mail_changed' => 'Ihre Email wurde zu %s geändert.',
-	'mdescr_account_access' => 'Sehen Sie sich Ihre letzten Authentifizierungen an.',
+	'md_account_access' => 'Sehen Sie sich Ihre letzten Authentifizierungen an.',
 	# 6.11.0
 	'div_user_textual_settings' => 'Text Einstellungen',
 	

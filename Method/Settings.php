@@ -9,18 +9,18 @@ use GDO\UI\GDT_Accordeon;
 use GDO\Form\GDT_Submit;
 use GDO\Form\MethodForm;
 use GDO\User\GDO_User;
-use GDO\Core\GDT_Field;
 use GDO\Form\GDT_AntiCSRF;
 
 /**
  * Offers users to change and view their settings for a single module.
  *
  * @author gizmore
- * @version 7.0.0
+ * @version 7.0.1
  * @since 6.1.0
  */
 final class Settings extends MethodForm
 {
+	public function showInSitemap() : bool { return false; }
 
 	public function gdoParameters(): array
 	{
@@ -36,23 +36,35 @@ final class Settings extends MethodForm
 
 	public function createForm(GDT_Form $form): void
 	{
+		$this->initUserSettingValues();
+
 		$module = $this->getModule();
 		$mname = $module->getName();
 		$form->noTitle();
-		foreach ($module->getSettingsCache() as $gdt)
-		{
-			if ($gdt instanceof GDT_Field)
-			{
-				$gdt->initial($module->settingVar($gdt->getName()));
-				$form->addField($gdt);
-			}
-		}
+		$form->noFocus();
+		$form->addFields(...array_values($module->getSettingsCacheContainers()));
 		$form->addField(GDT_AntiCSRF::make());
 		$form->actions()->addFields(
 			GDT_Submit::make("save_{$mname}")->label(
 				'btn_save_settings', [
 					$mname
 				]));
+	}
+	
+	private function initUserSettingValues() : void
+	{
+		$module = $this->getModule();
+		foreach ($module->getSettingsCache() as $gdt)
+		{
+// 			if ($gdt instanceof GDT_Field)
+			{
+				$gdt = $module->setting($gdt->name);
+				if ($acl = $module->getSettingACL($gdt->name))
+				{
+					$acl->setupLabels($gdt);
+				}
+			}
+		}
 	}
 
 	public function renderPage(): GDT
@@ -75,10 +87,10 @@ final class Settings extends MethodForm
 		{
 			if ($gdt->isWriteable())
 			{
-				$old = $gdt->getInitial();
-				$new = $this->gdoParameterVar($key);
-				if ($old !== $new)
+				if ($gdt->hasChanged())
 				{
+					$old = $gdt->getInitial();
+					$new = $this->gdoParameterVar($key);
 					$module->saveUserSetting($user, $key, $new);
 					$messages[] = t('msg_setting_changed', [$gdt->renderLabel(), $gdt->displayVar($old), $gdt->displayVar($new)]);
 				}

@@ -25,7 +25,7 @@ use GDO\Core\GDT_Response;
  */
 final class Delete extends MethodForm
 {
-	public function getUserType() : string { return 'member'; }
+	public function getUserType() : ?string { return 'member'; }
 	public function isEnabled() : bool { return Module_Account::instance()->cfgFeatureDeletion(); }
 	
 	public function beforeExecute() : void

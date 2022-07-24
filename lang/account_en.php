@@ -22,12 +22,12 @@ return [
 	'cfg_feature_demographic_mail_confirm' => 'Enable email confirmation',
 	##########################################################
 	'box_content_account_settings' => 'Here you find settings for all enabled modules with configuration variables.<br/>Note that we distingush variables which are just informative for you, and settings which you can toggle.',
-	'ft_account_settings' => '%s Settings',
+	'mt_account_settings' => '%s Settings',
 	'div_user_settings' => 'Personal %s settings',
 	'div_variables' => 'Your %s variables',
 	'msg_settings_saved' => 'Your settings for the %s module have been saved.<br/>%s',
 	##########################################################
-	'ft_account_form' => 'Account',
+	'mt_account_form' => 'Account',
 	'infobox_account_form' => 'Please note that you cannot change your "Realname" after it has been set, and it is <b>visible to anyone!</b><br/>Your demographic options can be set once every %s.',
 	'section_login' => 'Login Settings',
 	'section_email' => 'E-Mail Settings',
@@ -56,7 +56,7 @@ If you like, you can leave us a message with feedback on why you wanted to leave
 	'msg_account_marked_deleted' => 'Your account has been marked as deleted.',
 	'msg_account_pruned' => 'Your account has been wiped from the database.',
 	##########################################################
-	'ft_change_mail' => 'Change E-Mail',
+	'mt_change_mail' => 'Change E-Mail',
 	'err_email_retype' => 'Please recheck your E-Mail, as you did not retype it correctly.',
 	'btn_changemail' => 'Change E-Mail',
 	##########################################################
@@ -145,7 +145,7 @@ The %2$s Team',
 	'confirm_account_prune' => 'Do you really delete your account from the database and all information associated with it? This cannot be undone!',
 	'confirm_account_delete' => 'Do you really want to mark your account as deleted? This is not final. An admin could recover your account later.',
 	'msg_mail_changed' => 'Your email has been changed to %s.',
-	'mdescr_account_access' => 'Review logins for your account.',
+	'md_account_access' => 'Review logins for your account.',
 	# 6.11.0
 	'div_user_textual_settings' => 'Textual settings',
 	

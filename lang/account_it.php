@@ -23,11 +23,11 @@ return [
 	'cfg_feature_demographic_mail_confirm' => 'Modifiche mail confermare via mail?',
 	# #########################################################
 	'box_content_account_settings' => 'qui trovate tutte le vostre impostazioni.',
-	'ft_account_settings' => '%s Impostazioni',
+	'mt_account_settings' => '%s Impostazioni',
 	'div_user_settings' => '%s-Impostazioni personali',
 	'div_variables' => 'Le vostre %s variabili',
 	# #########################################################
-	'ft_account_form' => 'Conto',
+	'mt_account_form' => 'Conto',
 	'infobox_account_form' => 'Avviso: Il vostro &quot;nome reale&quot; possiamo inserirlo solo una volta ed <b>è pubblicamente visibile</b>.<br/>La sua opzione demografica puó cambiarla ogni %s.',
 	'section_login' => 'Informazioni sul conto',
 	'section_email' => 'Impostazioni e-Mail',
@@ -56,7 +56,7 @@ return [
 	'msg_account_marked_deleted' => 'Il suo account é stato marcato da cancellare.',
 	'msg_account_pruned' => 'Il suo account é stato rimosso con sucesso dalla databanchi.',
 	# #########################################################
-	'ft_change_mail' => 'Cambia e-Mail',
+	'mt_change_mail' => 'Cambia e-Mail',
 	'err_email_retype' => 'Gentilmente ricontrolli la sua e-Mail, visto che non é stata riinserita correttamente.',
 	'btn_changemail' => 'Cambia e-Mail',
 	# #########################################################
