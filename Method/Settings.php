@@ -74,7 +74,7 @@ final class Settings extends MethodForm
 		$form = $this->getForm();
 		$accordeon = GDT_Accordeon::make("acc_{$mname}");
 		$accordeon->titleRaw($module->renderName());
-		$accordeon->addField($form)->opened();
+		$accordeon->addField($form)->opened(false);
 		return $accordeon;
 	}
 
@@ -89,7 +89,7 @@ final class Settings extends MethodForm
 			{
 				if ($gdt->hasChanged())
 				{
-					$old = $gdt->getInitial();
+					$old = $gdt->var;
 					$new = $this->gdoParameterVar($key);
 					$module->saveUserSetting($user, $key, $new);
 					$messages[] = t('msg_setting_changed', [$gdt->renderLabel(), $gdt->displayVar($old), $gdt->displayVar($new)]);
