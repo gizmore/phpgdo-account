@@ -10,6 +10,7 @@ use GDO\Form\GDT_Submit;
 use GDO\Form\MethodForm;
 use GDO\User\GDO_User;
 use GDO\Form\GDT_AntiCSRF;
+use GDO\Util\Arrays;
 
 /**
  * Offers users to change and view their settings for a single module.
@@ -56,13 +57,10 @@ final class Settings extends MethodForm
 		$module = $this->getModule();
 		foreach ($module->getSettingsCache() as $gdt)
 		{
-// 			if ($gdt instanceof GDT_Field)
+			$gdt = $module->setting($gdt->name);
+			if ($acl = $module->getSettingACL($gdt->name))
 			{
-				$gdt = $module->setting($gdt->name);
-				if ($acl = $module->getSettingACL($gdt->name))
-				{
-					$acl->setupLabels($gdt);
-				}
+				$acl->setupLabels($gdt);
 			}
 		}
 	}
@@ -74,7 +72,7 @@ final class Settings extends MethodForm
 		$form = $this->getForm();
 		$accordeon = GDT_Accordeon::make("acc_{$mname}");
 		$accordeon->titleRaw($module->renderName());
-		$accordeon->addField($form)->opened(false);
+		$accordeon->addField($form)->opened($this->submitted);
 		return $accordeon;
 	}
 
@@ -83,17 +81,19 @@ final class Settings extends MethodForm
 		$messages = [];
 		$module = $this->getModule();
 		$user = GDO_User::current();
-		foreach ($module->getSettingsCache() as $key => $gdt)
+		foreach (Arrays::unique($module->getSettingsCache()) as $key => $gdt)
 		{
-			if ($gdt->isWriteable())
+			if ($gdt->isWriteable() && $gdt->hasChanged())
 			{
-				if ($gdt->hasChanged())
+				$old = $gdt->getVar();
+				foreach ($gdt->getGDOData() as $key => $var)
 				{
-					$old = $gdt->var;
-					$new = $this->gdoParameterVar($key);
-					$module->saveUserSetting($user, $key, $new);
-					$messages[] = t('msg_setting_changed', [$gdt->renderLabel(), $gdt->displayVar($old), $gdt->displayVar($new)]);
+					$module->saveUserSetting($user, $key, $var);
 				}
+				$new = $gdt->getVar();
+				$messages[] = t('msg_setting_changed', [
+					$gdt->renderLabel(),
+					$gdt->displayVar($old), $gdt->displayVar($new)]);
 			}
 		}
 		if (count($messages))
