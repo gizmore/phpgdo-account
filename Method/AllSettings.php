@@ -7,6 +7,7 @@ use GDO\Core\GDO_Module;
 use GDO\Core\ModuleLoader;
 use GDO\Core\GDT_Tuple;
 use GDO\Core\GDT_Method;
+use GDO\UI\GDT_Panel;
 
 /**
  * Show settings for all modules.
@@ -39,6 +40,7 @@ final class AllSettings extends Method
 	public function execute()
 	{
 		$response = GDT_Tuple::make();
+		$response->addField(GDT_Panel::make()->text('info_all_settings'));
 		foreach ($this->getModules() as $module)
 		{
 			if ($module->getUserSettings())

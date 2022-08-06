@@ -133,4 +133,5 @@ visto che le puó cambiare solo ogni %s.
 	'msg_settings_saved' => 'Le vostre impostazioni sono state riportate nel %s modulo.<br/>%s',
 	
 	'btn_save_settings' => 'Save %s settings',
+	'info_all_settings' => 'Here you can control your settings for all modules. Almost every setting has ACL visibility options to control what to show in your profile',
 ];
