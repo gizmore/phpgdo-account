@@ -14,7 +14,7 @@ use GDO\UI\GDT_Bar;
  * List all settings and make them changeable.
  * 
  * @author gizmore
- * @version 7.0.0
+ * @version 7.0.1
  * @since 3.0.0
  * @see GDO_User
  */
@@ -33,7 +33,6 @@ final class Module_Account extends GDO_Module
 	public function getClasses() : array
 	{
 	    return [
-	        GDO_AccountChange::class,
 	        GDO_AccountDelete::class,
 	    ];
 	}
@@ -87,7 +86,6 @@ final class Module_Account extends GDO_Module
 	                GDT_Link::make('btn_account')->href(
 	                    href('Account', 'AllSettings')));
 	        }
-	        
 	    }
 	}
 	

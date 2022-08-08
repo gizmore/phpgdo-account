@@ -10,7 +10,7 @@ return [
 	'prune' => 'Rimuovere',
 	# #########################################################
 	'cfg_adult_age' => 'etá adulta',
-	'cfg_tt_adult_age' => 'inserisca l´etá per contenuti d´adulto',
+	'tt_cfg_adult_age' => 'inserisca l´etá per contenuti d´adulto',
 	'cfg_account_changetime' => 'Demografia puó essere solo cambiata ogni ...',
 	'cfg_allow_real_name' => 'Permetti di cambiare il nome reale?',
 	'cfg_allow_guest_settings' => 'Permetti a ospiti di adeguare il conto',

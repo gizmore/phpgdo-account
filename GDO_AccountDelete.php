@@ -6,11 +6,12 @@ use GDO\UI\GDT_Message;
 use GDO\User\GDT_Username;
 use GDO\User\GDO_User;
 use GDO\Core\GDT_CreatedAt;
+use GDO\Core\GDT_AutoInc;
 /**
  * An account deletion note.
  * 
  * @author gizmore
- * @version 7.0.0
+ * @version 7.0.1
  * @since 3.1.0
  */
 final class GDO_AccountDelete extends GDO
@@ -23,6 +24,7 @@ final class GDO_AccountDelete extends GDO
 	public function gdoColumns() : array
 	{
 		return [
+			GDT_AutoInc::make('accrm_id'),
 			GDT_Username::make('accrm_username')->notNull(),
 			GDT_Message::make('accrm_note')->notNull(),
 			GDT_CreatedAt::make('accrm_created'),
@@ -35,7 +37,7 @@ final class GDO_AccountDelete extends GDO
 	public static function insertNote(GDO_User $user, string $note)
 	{
 		return self::blank([
-			'accrm_username' => $user->getName(),
+			'accrm_username' => $user->renderUserName(),
 			'accrm_note' => $note,
 		])->insert();
 	}

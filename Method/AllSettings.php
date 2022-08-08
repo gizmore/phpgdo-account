@@ -13,7 +13,8 @@ use GDO\UI\GDT_Panel;
  * Show settings for all modules.
  * 
  * @author gizmore
- * @version 7.0.0
+ * @version 7.0.1
+ * @since 7.0.0
  * @see Settings
  */
 final class AllSettings extends Method
@@ -43,13 +44,13 @@ final class AllSettings extends Method
 		$response->addField(GDT_Panel::make()->text('info_all_settings'));
 		foreach ($this->getModules() as $module)
 		{
-			if ($module->getUserSettings())
+			if ($module->getSettingsCache())
 			{
 				$inputs = $this->getInputs();
 				$inputs['module'] = $module->getName();
-				$method = Settings::make();#->withAppliedInputs($inputs);
-				$gdtmet = GDT_Method::make()->inputs($inputs)->method($method);
-				$response->addField($gdtmet->execute(true));
+				$method = Settings::make();
+				$gdtmet = GDT_Method::make()->method($method)->inputs($inputs);
+				$response->addField($gdtmet->execute());
 			}
 		}
 		return $response;

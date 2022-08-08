@@ -10,7 +10,7 @@ return [
 	'prune' => 'Entfernen',
 	# #########################################################
 	'cfg_adult_age' => 'Erwachsenenalter',
-	'cfg_tt_adult_age' => 'Geben Sie das Mindestalter an für Inhalt für Erwachsene.',
+	'tt_cfg_adult_age' => 'Geben Sie das Mindestalter an für Inhalt für Erwachsene.',
 	'cfg_account_changetime' => 'Demographie kann nur alle ... geändert werden',
 	'cfg_allow_real_name' => 'Erlauben den Realnamen zu ändern?',
 	'cfg_allow_guest_settings' => 'Erlaube Gästen das Konto anzupassen',

@@ -21,7 +21,7 @@ use GDO\Util\Arrays;
  */
 final class Settings extends MethodForm
 {
-	public function showInSitemap() : bool { return false; }
+	public function isShownInSitemap() : bool { return false; }
 
 	public function gdoParameters(): array
 	{
@@ -49,7 +49,7 @@ final class Settings extends MethodForm
 			GDT_Submit::make("save_{$mname}")->label(
 				'btn_save_settings', [
 					$mname
-				]));
+				])->onclick([$this, 'saveSettings']));
 	}
 	
 	private function initUserSettingValues() : void
@@ -76,21 +76,23 @@ final class Settings extends MethodForm
 		return $accordeon;
 	}
 
-	public function formValidated(GDT_Form $form)
+	public function saveSettings()
 	{
 		$messages = [];
 		$module = $this->getModule();
 		$user = GDO_User::current();
 		foreach (Arrays::unique($module->getSettingsCache()) as $key => $gdt)
 		{
+			/** @var $gdt GDT **/
 			if ($gdt->isWriteable() && $gdt->hasChanged())
 			{
-				$old = $gdt->getVar();
+				$old = $gdt->var;
+				$new = $gdt->getVar();
 				foreach ($gdt->getGDOData() as $key => $var)
 				{
 					$module->saveUserSetting($user, $key, $var);
 				}
-				$new = $gdt->getVar();
+// 				$gdt->inputs($this->inputs);
 				$messages[] = t('msg_setting_changed', [
 					$gdt->renderLabel(),
 					$gdt->displayVar($old), $gdt->displayVar($new)]);

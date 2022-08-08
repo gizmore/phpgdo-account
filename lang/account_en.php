@@ -9,7 +9,7 @@ return [
 	'prune' => 'Prune',
 	##########################################################
 	'cfg_adult_age' => 'Adult age',
-	'cfg_tt_adult_age' => 'Specify what the min age is for adult content.',
+	'tt_cfg_adult_age' => 'Specify what the min age is for adult content.',
 	'cfg_account_changetime' => 'Demographic change timeout',
 	'cfg_allow_real_name' => 'Allow change of Realname',
 	'cfg_allow_guest_settings' => 'Allow guests to change account',
