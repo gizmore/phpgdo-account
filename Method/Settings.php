@@ -11,6 +11,7 @@ use GDO\Form\MethodForm;
 use GDO\User\GDO_User;
 use GDO\Form\GDT_AntiCSRF;
 use GDO\Util\Arrays;
+use GDO\Core\GDT_Checkbox;
 
 /**
  * Offers users to change and view their settings for a single module.
@@ -27,7 +28,13 @@ final class Settings extends MethodForm
 	{
 		return [
 			GDT_Module::make('module')->installed()->notNull(),
+			GDT_Checkbox::make('opened')->initial('0'),
 		];
+	}
+	
+	public function isOpened() : bool
+	{
+		return $this->submitted || $this->gdoParameterVar('opened');
 	}
 
 	public function getModule(): GDO_Module
@@ -37,19 +44,22 @@ final class Settings extends MethodForm
 
 	public function createForm(GDT_Form $form): void
 	{
-		$this->initUserSettingValues();
-
 		$module = $this->getModule();
 		$mname = $module->getName();
+		
 		$form->noTitle();
 		$form->noFocus();
+		
 		$form->addFields(...array_values($module->getSettingsCacheContainers()));
 		$form->addField(GDT_AntiCSRF::make());
+		
 		$form->actions()->addFields(
 			GDT_Submit::make("save_{$mname}")->label(
 				'btn_save_settings', [
 					$mname
 				])->onclick([$this, 'saveSettings']));
+		
+		$this->initUserSettingValues();
 	}
 	
 	private function initUserSettingValues() : void
@@ -72,7 +82,7 @@ final class Settings extends MethodForm
 		$form = $this->getForm();
 		$accordeon = GDT_Accordeon::make("acc_{$mname}");
 		$accordeon->titleRaw($module->renderName());
-		$accordeon->addField($form)->opened($this->submitted);
+		$accordeon->addField($form)->opened($this->isOpened());
 		return $accordeon;
 	}
 
@@ -92,7 +102,7 @@ final class Settings extends MethodForm
 				{
 					$module->saveUserSetting($user, $key, $var);
 				}
-// 				$gdt->inputs($this->inputs);
+				$gdt->inputs($this->inputs);
 				$messages[] = t('msg_setting_changed', [
 					$gdt->renderLabel(),
 					$gdt->displayVar($old), $gdt->displayVar($new)]);
