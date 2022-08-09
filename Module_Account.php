@@ -36,6 +36,13 @@ final class Module_Account extends GDO_Module
 	        GDO_AccountDelete::class,
 	    ];
 	}
+	
+	public function getDependencies() : array
+	{
+		return [
+			'Login',
+		];
+	}
 
 	##############
 	### Config ###

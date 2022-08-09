@@ -25,7 +25,7 @@ final class GDO_AccountDelete extends GDO
 	{
 		return [
 			GDT_AutoInc::make('accrm_id'),
-			GDT_Username::make('accrm_username')->notNull(),
+			GDT_Username::make('accrm_username')->notNull()->unique(false),
 			GDT_Message::make('accrm_note')->notNull(),
 			GDT_CreatedAt::make('accrm_created'),
 		];
