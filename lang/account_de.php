@@ -132,7 +132,6 @@ The %2$s Team',
 	'mt_account_allsettings' => 'Alle Einstellungen',
 	'mt_account_config' => 'Konfiguration',
 	'msg_settings_saved' => 'Ihre Einstellungen für das %s Modul wurden übernommen:<br/>%s',
-	'msg_setting_changed' => '%s changed from %s to %s.',
 	
 	'btn_save_settings' => 'Save %s settings',
 	

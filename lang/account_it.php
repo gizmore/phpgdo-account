@@ -129,7 +129,6 @@ visto che le puó cambiare solo ogni %s.
 	'mt_account_settings' => 'Impostazioni',
 	'mt_account_allsettings' => 'Tutti Impostazioni',
 	'mt_account_config' => 'Configurazione',
-	'msg_setting_changed' => '%s changed from %s to %s.',
 	'msg_settings_saved' => 'Le vostre impostazioni sono state riportate nel %s modulo.<br/>%s',
 	
 	'btn_save_settings' => 'Save %s settings',

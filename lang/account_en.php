@@ -154,7 +154,6 @@ The %2$s Team',
 	'mt_account_allsettings' => 'All Settings',
 	'mt_account_config' => 'Config',
 	'msg_settings_saved' => 'Your settings for %s have been changed:<br/>%s',
-	'msg_setting_changed' => '%s changed from %s to %s.',
 	
 	'btn_save_settings' => 'Save %s settings',
 

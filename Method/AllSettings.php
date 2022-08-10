@@ -34,7 +34,7 @@ final class AllSettings extends Method
 	{
 		$modules = ModuleLoader::instance()->getEnabledModules();
 		usort($modules, function(GDO_Module $a, GDO_Module $b) {
-			return strcmp($a->renderName(), $b->renderName());
+			return strcasecmp($a->renderName(), $b->renderName());
 		});
 		return $modules;
 	}
