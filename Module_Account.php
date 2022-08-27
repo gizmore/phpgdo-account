@@ -51,11 +51,13 @@ final class Module_Account extends GDO_Module
 	{
 		return [
 			GDT_Checkbox::make('feature_account_deletion')->initial('1'),
-		    GDT_Checkbox::make('hook_sidebar')->initial('1'),
+			GDT_Checkbox::make('feature_account_purge')->initial('1'),
+			GDT_Checkbox::make('hook_sidebar')->initial('1'),
 		];
 	}
-	public function cfgFeatureDeletion() { return $this->getConfigValue('feature_account_deletion'); }
-	public function cfgHookRightBar() { return $this->getConfigValue('hook_sidebar'); }
+	public function cfgFeatureDeletion() : bool { return $this->getConfigValue('feature_account_deletion'); }
+	public function cfgFeaturePurge() : bool { return $this->getConfigValue('feature_account_purge'); }
+	public function cfgHookRightBar() : bool { return $this->getConfigValue('hook_sidebar'); }
 	
 	##############
 	### Navbar ###

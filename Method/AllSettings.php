@@ -53,7 +53,7 @@ final class AllSettings extends Method
 				$inputs = $this->getInputs();
 				$inputs['module'] = $module->getName();
 				$method = Settings::make();
-				$gdtmet = GDT_Method::make()->method($method)->inputs($inputs);
+				$gdtmet = GDT_Method::make()->method($method)->inputs($inputs)->noChecks();
 				$response->addField($gdtmet->execute());
 			}
 		}

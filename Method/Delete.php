@@ -43,8 +43,15 @@ final class Delete extends MethodForm
 		);
 		$form->actions()->addFields(
 		    GDT_DeleteButton::make('submit')->label('btn_delete_account')->confirmText('confirm_account_delete'),
-			GDT_DeleteButton::make('prune')->label('btn_prune_account')->confirmText('confirm_account_prune')->onclick([$this, 'pruneAccount']),
 		);
+		if (Module_Account::instance()->cfgFeaturePurge())
+		{
+			$form->actions()->addField(
+				GDT_DeleteButton::make('prune')->label('btn_prune_account')->
+					confirmText('confirm_account_prune')->
+					onclick([$this, 'pruneAccount'])
+			);
+		}
 	}
 	
 	public function formValidated(GDT_Form $form)
