@@ -25,8 +25,9 @@ use GDO\Core\GDT_Response;
  */
 final class Delete extends MethodForm
 {
-	public function getUserType() : ?string { return 'member'; }
 	public function isEnabled() : bool { return Module_Account::instance()->cfgFeatureDeletion(); }
+	public function plugUserID() : string { return '7'; }
+	public function getUserType() : ?string { return 'member'; }
 	
 	public function beforeExecute() : void
 	{
@@ -42,14 +43,18 @@ final class Delete extends MethodForm
 		);
 		$form->actions()->addFields(
 		    GDT_DeleteButton::make('submit')->label('btn_delete_account')->confirmText('confirm_account_delete'),
-			GDT_DeleteButton::make('prune')->label('btn_prune_account')->confirmText('confirm_account_prune'),
+			GDT_DeleteButton::make('prune')->label('btn_prune_account')->confirmText('confirm_account_prune')->onclick([$this, 'pruneAccount']),
 		);
 	}
 	
 	public function formValidated(GDT_Form $form)
 	{
-		$prune = $form->hasInput('prune');
-		return $this->deleteAccount($prune);
+		return $this->deleteAccount(false);
+	}
+	
+	public function pruneAccount()
+	{
+		return $this->deleteAccount(true);
 	}
 	
 	public function deleteAccount(bool $prune, bool $logout=true)
