@@ -26,7 +26,7 @@ use GDO\Core\GDT_Response;
 final class Delete extends MethodForm
 {
 	public function isEnabled() : bool { return Module_Account::instance()->cfgFeatureDeletion(); }
-	public function plugUserID() : string { return '7'; }
+	
 	public function getUserType() : ?string { return 'member'; }
 	
 	public function beforeExecute() : void
@@ -118,6 +118,28 @@ final class Delete extends MethodForm
 			$mail->setBody(tusr($admin, 'mail_body_account_deleted', $args));
 			$mail->sendToUser($admin);
 		}
+	}
+	
+	############
+	### Test ###
+	############
+	/**
+	 * We do not test this with gizmore user.
+	 */
+	public function plugUserID() : string
+	{
+		return '7';
+	}
+
+	/**
+	 * Only run one special test here.
+	 */
+	public function plugVars() : array
+	{
+		return [
+			['accrm_note_input' => 'I give up!'],
+			['submit' => '1'],
+		];
 	}
 	
 }
