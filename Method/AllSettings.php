@@ -22,7 +22,7 @@ final class AllSettings extends Method
 	/**
 	 * Render account bar.
 	 */
-	public function beforeExecute() : void
+	public function onRenderTabs() : void
 	{
 		Module_Account::instance()->renderAccountBar();
 	}
