@@ -82,7 +82,7 @@ final class Settings extends MethodForm
 			{
 				$acl->setupLabels($gdt);
 			}
-			$gdt->tooltip('test');
+// 			$gdt->tooltip('test');
 		}
 	}
 
