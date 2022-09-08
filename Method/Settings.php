@@ -10,8 +10,9 @@ use GDO\Form\GDT_Submit;
 use GDO\Form\MethodForm;
 use GDO\User\GDO_User;
 use GDO\Form\GDT_AntiCSRF;
-use GDO\Util\Arrays;
 use GDO\Core\GDT_Checkbox;
+use GDO\Language\Trans;
+use GDO\UI\TextStyle;
 
 /**
  * Offers users to change and view their settings for a single module.
@@ -82,7 +83,11 @@ final class Settings extends MethodForm
 			{
 				$acl->setupLabels($gdt);
 			}
-// 			$gdt->tooltip('test');
+			$tt = "tt_cfg_{$gdt->name}";
+			if (Trans::hasKey($tt))
+			{
+				$gdt->tooltip($tt);
+			}
 		}
 	}
 
@@ -102,7 +107,7 @@ final class Settings extends MethodForm
 		$messages = [];
 		$module = $this->getSettingsModule();
 		$user = GDO_User::current();
-		foreach (Arrays::unique($module->getSettingsCache()) as $key => $gdt)
+		foreach ($module->getSettingsCache() as $key => $gdt)
 		{
 			/** @var $gdt GDT **/
 			if ($gdt->isWriteable() && $gdt->hasChanged())
@@ -111,17 +116,19 @@ final class Settings extends MethodForm
 				$new = $gdt->getVar();
 				foreach ($gdt->getGDOData() as $key => $var)
 				{
-// 					$gdt->inputs($this->inputs);
 					$module->saveUserSetting($user, $key, $var);
 				}
 				$messages[] = t('msg_modulevar_changed', [
-					$gdt->renderLabel(),
-					$gdt->displayVar($old), $gdt->displayVar($new)]);
+					TextStyle::bold($gdt->renderLabel()),
+					TextStyle::italic($gdt->displayVar($old)),
+					TextStyle::italic($gdt->displayVar($new))]);
 			}
 		}
 		if (count($messages))
 		{
-			$this->message('msg_settings_saved', [$module->renderName(), implode(' ', $messages)]);
+			$this->message('msg_settings_saved', [
+				$module->renderName(),
+				implode("<br/>\n", $messages)]);
 		}
 		return $this->renderPage();
 	}
