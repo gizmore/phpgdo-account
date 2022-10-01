@@ -114,10 +114,10 @@ final class Settings extends MethodForm
 			{
 				$old = $gdt->var;
 				$new = $gdt->getVar();
-				foreach ($gdt->getGDOData() as $key => $var)
-				{
-					$module->saveUserSetting($user, $key, $var);
-				}
+// 				foreach ($gdt->getGDOData() as $key => $var)
+// 				{
+					$module->saveUserSetting($user, $key, $new);
+// 				}
 				$messages[] = t('msg_modulevar_changed', [
 					TextStyle::bold($gdt->renderLabel()),
 					TextStyle::italic($gdt->displayVar($old)),
