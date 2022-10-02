@@ -53,7 +53,7 @@ final class Settings extends MethodForm
 		$form->noFocus();
 		
 		$form->addFields(...array_values($module->getSettingsCacheContainers()));
-		$form->addField(GDT_AntiCSRF::make());
+		$form->addField(GDT_AntiCSRF::make()->fixed());
 		
 		$form->actions()->addFields(
 			GDT_Submit::make("save_{$mname}")->label(
