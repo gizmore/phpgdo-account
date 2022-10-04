@@ -20,7 +20,7 @@ use GDO\UI\GDT_Bar;
  */
 final class Module_Account extends GDO_Module
 {
-    public int $priority = 25;
+    public int $priority = 7;
     
     ##############
 	### Module ###
