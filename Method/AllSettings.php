@@ -19,6 +19,12 @@ use GDO\UI\GDT_Panel;
  */
 final class AllSettings extends Method
 {
+	
+	public function isUserRequired() : bool
+	{
+		return true;
+	}
+	
 	/**
 	 * Render account bar.
 	 */
