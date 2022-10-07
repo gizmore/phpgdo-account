@@ -12,7 +12,7 @@ use GDO\UI\GDT_Bar;
 /**
  * Member Account Changes.
  * List all settings and make them changeable.
- * 
+ *
  * @author gizmore
  * @version 7.0.1
  * @since 3.0.0
@@ -20,34 +20,35 @@ use GDO\UI\GDT_Bar;
  */
 final class Module_Account extends GDO_Module
 {
-    public int $priority = 7;
-    
-    ##############
-	### Module ###
-	##############
-	public function onLoadLanguage() : void
+
+	public int $priority = 7;
+
+	# #############
+	# ## Module ###
+	# #############
+	public function onLoadLanguage(): void
 	{
 		$this->loadLanguage('lang/account');
 	}
-	
-	public function getClasses() : array
+
+	public function getClasses(): array
 	{
-	    return [
-	        GDO_AccountDelete::class,
-	    ];
+		return [
+			GDO_AccountDelete::class,
+		];
 	}
-	
-	public function getDependencies() : array
+
+	public function getDependencies(): array
 	{
 		return [
 			'Login',
 		];
 	}
 
-	##############
-	### Config ###
-	##############
-	public function getConfig() : array
+	# #############
+	# ## Config ###
+	# #############
+	public function getConfig(): array
 	{
 		return [
 			GDT_Checkbox::make('feature_account_deletion')->initial('1'),
@@ -55,24 +56,37 @@ final class Module_Account extends GDO_Module
 			GDT_Checkbox::make('hook_sidebar')->initial('1'),
 		];
 	}
-	public function cfgFeatureDeletion() : bool { return $this->getConfigValue('feature_account_deletion'); }
-	public function cfgFeaturePurge() : bool { return $this->getConfigValue('feature_account_purge'); }
-	public function cfgHookRightBar() : bool { return $this->getConfigValue('hook_sidebar'); }
-	
-	##############
-	### Navbar ###
-	##############
+
+	public function cfgFeatureDeletion(): bool
+	{
+		return $this->getConfigValue('feature_account_deletion');
+	}
+
+	public function cfgFeaturePurge(): bool
+	{
+		return $this->getConfigValue('feature_account_purge');
+	}
+
+	public function cfgHookRightBar(): bool
+	{
+		return $this->getConfigValue('hook_sidebar');
+	}
+
+	# #############
+	# ## Navbar ###
+	# #############
 	private GDT_Bar $accountBar;
+
 	public function getTopNav()
 	{
-		if (!isset($this->accountBar))
+		if ( !isset($this->accountBar))
 		{
 			$this->accountBar = GDT_Bar::make('account_bar')->horizontal();
 			GDT_Page::instance()->topResponse()->addField($this->accountBar);
 		}
 		return $this->accountBar;
 	}
-	
+
 	public function renderAccountBar()
 	{
 		$nav = $this->getTopNav();
@@ -83,19 +97,24 @@ final class Module_Account extends GDO_Module
 			$nav->addField(GDT_Link::make('mt_account_delete')->href(href('Account', 'Delete')));
 		}
 	}
-	
-	public function onInitSidebar() : void
+
+	public function onInitSidebar(): void
 	{
-	    if ($this->cfgHookRightBar())
-	    {
-	        $user = GDO_User::current();
-	        if ($user->isUser())
-	        {
-	            GDT_Page::$INSTANCE->rightBar()->addField(
-	                GDT_Link::make('btn_account')->href(
-	                    href('Account', 'AllSettings')));
-	        }
-	    }
+		if ($this->cfgHookRightBar())
+		{
+			$user = GDO_User::current();
+			if ($user->isUser())
+			{
+				$this->initRightBar($user);
+			}
+		}
 	}
-	
+
+	private function initRightBar(GDO_User $user): void
+	{
+		$bar = GDT_Page::$INSTANCE->rightBar();
+		$menu = $bar->getField('menu_profile');
+		$menu->addField(GDT_Link::make('btn_account')->href(href('Account', 'AllSettings')));
+	}
+
 }
