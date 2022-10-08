@@ -54,10 +54,10 @@ final class AllSettings extends Method
 		$response->addField(GDT_Panel::make()->text('info_all_settings'));
 		foreach ($this->getModules() as $module)
 		{
-			if ($module->getSettingsCache())
+			if ($module->hasUserSettings())
 			{
 				$inputs = $this->getInputs();
-				$inputs['module'] = $module->getName();
+				$inputs['module'] = $module->getModuleName();
 				$method = Settings::make();
 				$gdtmet = GDT_Method::make()->method($method)->inputs($inputs)->noChecks();
 				$response->addField($gdtmet->execute());

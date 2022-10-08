@@ -24,7 +24,11 @@ use GDO\UI\TextStyle;
  */
 final class Settings extends MethodForm
 {
-	public function isShownInSitemap() : bool { return false; }
+
+	public function isShownInSitemap(): bool
+	{
+		return false;
+	}
 
 	public function gdoParameters(): array
 	{
@@ -33,8 +37,8 @@ final class Settings extends MethodForm
 			GDT_Checkbox::make('opened')->initial('0'),
 		];
 	}
-	
-	public function isOpened() : bool
+
+	public function isOpened(): bool
 	{
 		return $this->submitted || $this->gdoParameterVar('opened');
 	}
@@ -48,23 +52,33 @@ final class Settings extends MethodForm
 	{
 		$module = $this->getSettingsModule();
 		$mname = $module->getName();
-		
+
 		$form->noTitle();
 		$form->noFocus();
-		
-		$form->addFields(...array_values($module->getSettingsCacheContainers()));
+		$form->addFields(
+			...array_filter(array_values($module->getSettingsCacheContainers()), [
+				$this,
+				'filterHiddenSettings'
+			]));
 		$form->addField(GDT_AntiCSRF::make()->fixed());
-		
 		$form->actions()->addFields(
-			GDT_Submit::make("save_{$mname}")->label(
-				'btn_save_settings', [
-					$mname
-				])->onclick([$this, 'saveSettings']));
-		
+			GDT_Submit::make("save_{$mname}")->label('btn_save_settings', [
+				$mname
+			])
+				->onclick([
+				$this,
+				'saveSettings'
+			]));
+
 		$this->initUserSettingValues();
 	}
-	
-	public function resetForm(bool $removeInput = false) : void
+
+	public function filterHiddenSettings(GDT $gdt): bool
+	{
+		return !$gdt->isHidden();
+	}
+
+	public function resetForm(bool $removeInput = false): void
 	{
 		# Do **NOT** reset the form :)
 		# This is quite rare to need for stuff to work.
@@ -72,8 +86,8 @@ final class Settings extends MethodForm
 		# $initial always holds the default value for all users, unlike other GDT usage.
 		# Quirky but ok.
 	}
-	
-	private function initUserSettingValues() : void
+
+	private function initUserSettingValues(): void
 	{
 		$module = $this->getSettingsModule();
 		foreach ($module->getSettingsCache() as $gdt)
@@ -114,21 +128,21 @@ final class Settings extends MethodForm
 			{
 				$old = $gdt->var;
 				$new = $gdt->getVar();
-// 				foreach ($gdt->getGDOData() as $key => $var)
-// 				{
-					$module->saveUserSetting($user, $key, $new);
-// 				}
-				$messages[] = t('msg_modulevar_changed', [
-					TextStyle::bold($gdt->renderLabel()),
-					TextStyle::italic($gdt->displayVar($old)),
-					TextStyle::italic($gdt->displayVar($new))]);
+				$module->saveUserSetting($user, $key, $new);
+				$messages[] = t('msg_modulevar_changed',
+					[
+						TextStyle::bold($gdt->renderLabel()),
+						TextStyle::italic($gdt->displayVar($old)),
+						TextStyle::italic($gdt->displayVar($new))
+					]);
 			}
 		}
 		if (count($messages))
 		{
 			$this->message('msg_settings_saved', [
 				$module->renderName(),
-				implode("<br/>\n", $messages)]);
+				implode("<br/>\n", $messages)
+			]);
 		}
 		return $this->renderPage();
 	}
