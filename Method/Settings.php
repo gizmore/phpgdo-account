@@ -29,6 +29,11 @@ final class Settings extends MethodForm
 	{
 		return false;
 	}
+	
+	public function isTrivial(): bool
+	{
+		return false;
+	}
 
 	public function gdoParameters(): array
 	{
