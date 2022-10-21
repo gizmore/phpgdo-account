@@ -136,6 +136,17 @@ final class Settings extends MethodForm
 						TextStyle::italic($gdt->displayVar($new))
 					]);
 			}
+			$acl = $module->getUserConfigACLField($key, $user);
+			if ($acl->aclRelation->hasChanged())
+			{
+				$messages[] = t('msg_modulevar_changed',
+					[
+						TextStyle::bold($gdt->renderLabel()),
+						TextStyle::italic($gdt->displayVar($acl->var)),
+						TextStyle::italic($gdt->displayVar($acl->getVar()))
+					]);
+				$module->saveUserSettingACLRelation($user, $key, $acl->getVar());
+			}
 		}
 		if (count($messages))
 		{
