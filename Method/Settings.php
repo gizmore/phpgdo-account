@@ -136,16 +136,21 @@ final class Settings extends MethodForm
 						TextStyle::italic($gdt->displayVar($new))
 					]);
 			}
-			$acl = $module->getUserConfigACLField($key, $user);
-			if ($acl->aclRelation->hasChanged())
+			
+			# The fields ACL relation value.
+			if ($acl = $module->getUserConfigACLField($key, $user))
 			{
-				$messages[] = t('msg_modulevar_changed',
-					[
-						TextStyle::bold($gdt->renderLabel()),
-						TextStyle::italic($gdt->displayVar($acl->var)),
-						TextStyle::italic($gdt->displayVar($acl->getVar()))
-					]);
-				$module->saveUserSettingACLRelation($user, $key, $acl->getVar());
+				$aclr = $acl->aclRelation;
+				if ($aclr->hasChanged())
+				{
+					$messages[] = t('msg_modulevar_changed',
+						[
+							TextStyle::bold($aclr->renderLabel()),
+							TextStyle::italic($aclr->displayVar($aclr->var)),
+							TextStyle::italic($aclr->displayVar($aclr->getVar())),
+						]);
+					$module->saveUserSettingACLRelation($user, $key, $aclr->getVar());
+				}
 			}
 		}
 		if (count($messages))
