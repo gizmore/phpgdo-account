@@ -98,7 +98,7 @@ final class Settings extends MethodForm
 		foreach ($module->getSettingsCache() as $gdt)
 		{
 			$gdt = $module->setting($gdt->name);
-			if ($acl = $module->getSettingACL($gdt->name))
+			if ($acl = $module->getUserConfigACLField($gdt->name, GDO_User::current()))
 			{
 				$acl->setupLabels($gdt);
 			}
