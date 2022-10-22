@@ -29,6 +29,11 @@ final class Delete extends MethodForm
 	
 	public function getUserType() : ?string { return 'member'; }
 	
+	public function isTrivial(): bool
+	{
+		return false;
+	}
+	
 	public function onRenderTabs() : void
 	{
 		Module_Account::instance()->renderAccountBar();
