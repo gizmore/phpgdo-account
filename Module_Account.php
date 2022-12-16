@@ -12,6 +12,7 @@ use GDO\UI\GDT_Bar;
 /**
  * Member Account Changes.
  * List all settings and make them changeable.
+ * High priority to show up first in personal menu.
  *
  * @author gizmore
  * @version 7.0.1
@@ -43,6 +44,11 @@ final class Module_Account extends GDO_Module
 		return [
 			'Login',
 		];
+	}
+	
+	public function href_administrate_module(): ?string
+	{
+		return href('Account', 'Admin');
 	}
 
 	# #############
