@@ -119,7 +119,8 @@ final class Module_Account extends GDO_Module
 	private function initRightBar(GDO_User $user): void
 	{
 		$bar = GDT_Page::$INSTANCE->rightBar();
-		$menu = $bar->getField('menu_profile');
+		$menu = $bar->getField('menu_profile', false);
+		$menu = $menu ? $menu : $bar;
 		$menu->addField(GDT_Link::make('btn_account')->href(href('Account', 'AllSettings')));
 	}
 
