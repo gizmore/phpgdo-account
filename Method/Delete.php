@@ -20,7 +20,7 @@ use GDO\Core\GDT_Response;
  * Send mail to admins with optional note.
  * 
  * @author gizmore
- * @version 7.0.1
+ * @version 7.0.2
  * @since 3.0.0
  */
 final class Delete extends MethodForm

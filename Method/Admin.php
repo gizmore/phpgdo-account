@@ -14,9 +14,14 @@ use GDO\Admin\MethodAdmin;
 final class Admin extends Method
 {
 	use MethodAdmin;
-	
+
 	public function execute()
 	{
 	}
-	
+
+	public function getMethodTitle(): string
+	{
+		return t('admin');
+	}
+
 }
