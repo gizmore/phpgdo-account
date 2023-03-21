@@ -2,47 +2,35 @@
 namespace GDO\Account\Method;
 
 use GDO\Account\Module_Account;
-use GDO\Core\Method;
 use GDO\Core\GDO_Module;
-use GDO\Core\ModuleLoader;
-use GDO\Core\GDT_Tuple;
 use GDO\Core\GDT_Method;
+use GDO\Core\GDT_Tuple;
+use GDO\Core\Method;
+use GDO\Core\ModuleLoader;
 use GDO\UI\GDT_Panel;
 
 /**
  * Show settings for all modules.
- * 
- * @author gizmore
+ *
  * @version 7.0.1
  * @since 7.0.0
+ * @author gizmore
  * @see Settings
  */
 final class AllSettings extends Method
 {
-	
-	public function isUserRequired() : bool
+
+	public function isUserRequired(): bool
 	{
 		return true;
 	}
-	
+
 	/**
 	 * Render account bar.
 	 */
-	public function onRenderTabs() : void
+	public function onRenderTabs(): void
 	{
 		Module_Account::instance()->renderAccountBar();
-	}
-
-	/**
-	 * @return GDO_Module[]
-	 */
-	private function getModules() : array
-	{
-		$modules = ModuleLoader::instance()->getEnabledModules();
-		usort($modules, function(GDO_Module $a, GDO_Module $b) {
-			return strcasecmp($a->renderName(), $b->renderName());
-		});
-		return $modules;
 	}
 
 	/**
@@ -65,5 +53,18 @@ final class AllSettings extends Method
 		}
 		return $response;
 	}
-	
+
+	/**
+	 * @return GDO_Module[]
+	 */
+	private function getModules(): array
+	{
+		$modules = ModuleLoader::instance()->getEnabledModules();
+		usort($modules, function (GDO_Module $a, GDO_Module $b)
+		{
+			return strcasecmp($a->renderName(), $b->renderName());
+		});
+		return $modules;
+	}
+
 }

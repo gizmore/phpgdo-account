@@ -1,25 +1,26 @@
 <?php
 namespace GDO\Account\Method;
 
+use GDO\Core\GDT_JSON;
 use GDO\Core\MethodAjax;
 use GDO\Core\ModuleLoader;
 use GDO\User\GDO_User;
-use GDO\Core\GDT_JSON;
 
 /**
  * Get all user settings for the current user via ajax.
- * 
- * @author gizmore
+ *
  * @version 7.0.1
  * @since 6.7.0
+ * @author gizmore
  */
 final class AjaxSettings extends MethodAjax
 {
-	public function isUserRequired() : bool
+
+	public function isUserRequired(): bool
 	{
 		return true;
 	}
-	
+
 	public function execute()
 	{
 		$user = GDO_User::current();
@@ -28,11 +29,11 @@ final class AjaxSettings extends MethodAjax
 		foreach ($modules as $module)
 		{
 			$modulename = $module->getName();
-			
+
 			foreach ($module->getSettingsCache() as $gdt)
 			{
 				$gdt = $module->userSetting($user, $gdt->name); # to assign current user to gdt
-				
+
 				if ($gdt->isSerializable())
 				{
 					if (!isset($json[$modulename]))

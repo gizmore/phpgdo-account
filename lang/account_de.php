@@ -126,14 +126,14 @@ The %2$s Team',
 	'md_account_access' => 'Sehen Sie sich Ihre letzten Authentifizierungen an.',
 	# 6.11.0
 	'div_user_textual_settings' => 'Text Einstellungen',
-	
+
 	# 7.0.0
 	'mt_account_settings' => 'Einstellungen',
 	'mt_account_allsettings' => 'Alle Einstellungen',
 	'mt_account_config' => 'Konfiguration',
 	'msg_settings_saved' => 'Ihre Einstellungen für das %s Modul wurden übernommen:<br/>%s',
-	
+
 	'btn_save_settings' => 'Save %s settings',
-	
+
 	'info_all_settings' => 'Here you can control your settings for all modules. Almost every setting has ACL visibility options to control what to show in your profile',
 ];

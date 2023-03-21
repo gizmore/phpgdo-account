@@ -5,12 +5,10 @@ Account Settings Module for
 Print all user Settings in accordeons and allow to change them.
 Allow users to delete their account.
 
-
 ### phpgdo-account: Dependencies
 
 This module depends on
 [Login](https://github.com/gizmore/phpgdo-login).
-
 
 ### phpgdo-account: Deletion
 
@@ -24,7 +22,6 @@ On prune, the user is deleted from the db and cascades kick in.
 On delete, associations stay intact.
 the User is rendered with less opacity.
 
-
 ### phpgdo-account: Settings
 
 Modules can have configs, userconfigs and usersettings.
@@ -34,7 +31,6 @@ and set their profile ACL for userconfigs and usersettings.
 
 The difference between a setting and a config is
 that configs cannot be changed by the user.
-
 
 #### phpgdo-account: License
 

@@ -1,25 +1,25 @@
 <?php
 namespace GDO\Account\Method;
 
-use GDO\Form\GDT_Form;
-use GDO\Core\GDT;
-use GDO\Core\GDT_Module;
 use GDO\Core\GDO_Module;
-use GDO\UI\GDT_Accordeon;
+use GDO\Core\GDT;
+use GDO\Core\GDT_Checkbox;
+use GDO\Core\GDT_Module;
+use GDO\Form\GDT_AntiCSRF;
+use GDO\Form\GDT_Form;
 use GDO\Form\GDT_Submit;
 use GDO\Form\MethodForm;
-use GDO\User\GDO_User;
-use GDO\Form\GDT_AntiCSRF;
-use GDO\Core\GDT_Checkbox;
 use GDO\Language\Trans;
+use GDO\UI\GDT_Accordeon;
 use GDO\UI\TextStyle;
+use GDO\User\GDO_User;
 
 /**
  * Offers users to change and view their settings for a single module.
  *
- * @author gizmore
  * @version 7.0.1
  * @since 6.1.0
+ * @author gizmore
  * @see AllSettings for all modules at once.
  */
 final class Settings extends MethodForm
@@ -29,7 +29,7 @@ final class Settings extends MethodForm
 	{
 		return false;
 	}
-	
+
 	public function isTrivial(): bool
 	{
 		return false;
@@ -43,16 +43,6 @@ final class Settings extends MethodForm
 		];
 	}
 
-	public function isOpened(): bool
-	{
-		return $this->submitted || $this->gdoParameterVar('opened');
-	}
-
-	public function getSettingsModule(): GDO_Module
-	{
-		return $this->gdoParameterValue('module');
-	}
-
 	public function createForm(GDT_Form $form): void
 	{
 		$module = $this->getSettingsModule();
@@ -62,34 +52,25 @@ final class Settings extends MethodForm
 		$form->noFocus();
 		$form->addFields(
 			...array_filter(array_values($module->getSettingsCacheContainers()), [
-				$this,
-				'filterHiddenSettings'
-			]));
+			$this,
+			'filterHiddenSettings',
+		]));
 		$form->addField(GDT_AntiCSRF::make()->fixed());
 		$form->actions()->addFields(
 			GDT_Submit::make("save_{$mname}")->label('btn_save_settings', [
-				$mname
+				$mname,
 			])
 				->onclick([
-				$this,
-				'saveSettings'
-			]));
+					$this,
+					'saveSettings',
+				]));
 
 		$this->initUserSettingValues();
 	}
 
-	public function filterHiddenSettings(GDT $gdt): bool
+	public function getSettingsModule(): GDO_Module
 	{
-		return !$gdt->isHidden();
-	}
-
-	public function resetForm(bool $removeInput = false): void
-	{
-		# Do **NOT** reset the form :)
-		# This is quite rare to need for stuff to work.
-		# Settings are a bit tricky.
-		# $initial always holds the default value for all users, unlike other GDT usage.
-		# Quirky but ok.
+		return $this->gdoParameterValue('module');
 	}
 
 	private function initUserSettingValues(): void
@@ -110,15 +91,18 @@ final class Settings extends MethodForm
 		}
 	}
 
-	public function renderPage(): GDT
+	public function resetForm(bool $removeInput = false): void
 	{
-		$module = $this->getSettingsModule();
-		$mname = $module->getName();
-		$form = $this->getForm();
-		$accordeon = GDT_Accordeon::make("acc_{$mname}");
-		$accordeon->titleRaw($module->renderName());
-		$accordeon->addField($form)->opened($this->isOpened());
-		return $accordeon;
+		# Do **NOT** reset the form :)
+		# This is quite rare to need for stuff to work.
+		# Settings are a bit tricky.
+		# $initial always holds the default value for all users, unlike other GDT usage.
+		# Quirky but ok.
+	}
+
+	public function filterHiddenSettings(GDT $gdt): bool
+	{
+		return !$gdt->isHidden();
 	}
 
 	public function saveSettings()
@@ -128,7 +112,7 @@ final class Settings extends MethodForm
 		$user = GDO_User::current();
 		foreach ($module->getSettingsCache() as $key => $gdt)
 		{
-			/** @var $gdt GDT **/
+			/** @var $gdt GDT * */
 			if ($gdt->isWriteable() && $gdt->hasChanged())
 			{
 				$old = $gdt->var;
@@ -138,10 +122,10 @@ final class Settings extends MethodForm
 					[
 						TextStyle::bold($gdt->renderLabel()),
 						TextStyle::italic($gdt->displayVar($old)),
-						TextStyle::italic($gdt->displayVar($new))
+						TextStyle::italic($gdt->displayVar($new)),
 					]);
 			}
-			
+
 			# The fields ACL relation value.
 			if ($acl = $module->getUserConfigACLField($key, $user))
 			{
@@ -162,10 +146,26 @@ final class Settings extends MethodForm
 		{
 			$this->message('msg_settings_saved', [
 				$module->renderName(),
-				implode("<br/>\n", $messages)
+				implode("<br/>\n", $messages),
 			]);
 		}
 		return $this->renderPage();
+	}
+
+	public function renderPage(): GDT
+	{
+		$module = $this->getSettingsModule();
+		$mname = $module->getName();
+		$form = $this->getForm();
+		$accordeon = GDT_Accordeon::make("acc_{$mname}");
+		$accordeon->titleRaw($module->renderName());
+		$accordeon->addField($form)->opened($this->isOpened());
+		return $accordeon;
+	}
+
+	public function isOpened(): bool
+	{
+		return $this->submitted || $this->gdoParameterVar('opened');
 	}
 
 }
