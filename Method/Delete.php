@@ -3,6 +3,7 @@ namespace GDO\Account\Method;
 
 use GDO\Account\GDO_AccountDelete;
 use GDO\Account\Module_Account;
+use GDO\Core\GDT;
 use GDO\Core\GDT_Hook;
 use GDO\Core\GDT_Response;
 use GDO\Date\Time;
@@ -26,7 +27,7 @@ use GDO\User\GDO_User;
 final class Delete extends MethodForm
 {
 
-	public function isEnabled(): bool { return Module_Account::instance()->cfgFeatureDeletion(); }
+	public function isEnabled(): string { return Module_Account::instance()->cfgFeatureDeletion(); }
 
 	public function getUserType(): ?string { return 'member'; }
 
@@ -60,7 +61,7 @@ final class Delete extends MethodForm
 		}
 	}
 
-	public function formValidated(GDT_Form $form)
+	public function formValidated(GDT_Form $form): GDT
 	{
 		return $this->deleteAccount(false);
 	}

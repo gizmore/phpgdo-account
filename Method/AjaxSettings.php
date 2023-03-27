@@ -1,6 +1,7 @@
 <?php
 namespace GDO\Account\Method;
 
+use GDO\Core\GDT;
 use GDO\Core\GDT_JSON;
 use GDO\Core\MethodAjax;
 use GDO\Core\ModuleLoader;
@@ -21,7 +22,7 @@ final class AjaxSettings extends MethodAjax
 		return true;
 	}
 
-	public function execute()
+	public function execute(): GDT
 	{
 		$user = GDO_User::current();
 		$json = ['user' => $user->toJSON()];

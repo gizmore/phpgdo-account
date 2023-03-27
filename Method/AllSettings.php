@@ -3,6 +3,7 @@ namespace GDO\Account\Method;
 
 use GDO\Account\Module_Account;
 use GDO\Core\GDO_Module;
+use GDO\Core\GDT;
 use GDO\Core\GDT_Method;
 use GDO\Core\GDT_Tuple;
 use GDO\Core\Method;
@@ -20,6 +21,11 @@ use GDO\UI\GDT_Panel;
 final class AllSettings extends Method
 {
 
+	public function getMethodTitle(): string
+	{
+		return t('link_settings');
+	}
+
 	public function isUserRequired(): bool
 	{
 		return true;
@@ -36,7 +42,7 @@ final class AllSettings extends Method
 	/**
 	 * Create a Settings method for every module.
 	 */
-	public function execute()
+	public function execute(): GDT
 	{
 		$response = GDT_Tuple::make();
 		$response->addField(GDT_Panel::make()->text('info_all_settings'));
