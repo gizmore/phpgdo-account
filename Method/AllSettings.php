@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace GDO\Account\Method;
 
 use GDO\Account\Module_Account;
@@ -13,7 +14,7 @@ use GDO\UI\GDT_Panel;
 /**
  * Show settings for all modules.
  *
- * @version 7.0.1
+ * @version 7.0.3
  * @since 7.0.0
  * @author gizmore
  * @see Settings
@@ -59,6 +60,7 @@ final class AllSettings extends Method
 		}
 		return $response;
 	}
+
 
 	/**
 	 * @return GDO_Module[]
