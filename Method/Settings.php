@@ -48,7 +48,7 @@ final class Settings extends MethodForm
 		$module = $this->getSettingsModule();
 		$mname = $module->getName();
 
-		$form->noTitle();
+		$form->titleNone();
 		$form->noFocus();
 		$form->addFields(
 			...array_filter(array_values($module->getSettingsCacheContainers()), [
