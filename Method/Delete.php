@@ -27,7 +27,7 @@ use GDO\User\GDO_User;
 final class Delete extends MethodForm
 {
 
-	public function isEnabled(): string { return Module_Account::instance()->cfgFeatureDeletion(); }
+	public function isEnabled(): bool { return Module_Account::instance()->cfgFeatureDeletion(); }
 
 	public function getUserType(): ?string { return 'member'; }
 
@@ -41,7 +41,7 @@ final class Delete extends MethodForm
 		Module_Account::instance()->renderAccountBar();
 	}
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$form->text('box_info_deletion', [sitename()]);
 		$form->addFields(

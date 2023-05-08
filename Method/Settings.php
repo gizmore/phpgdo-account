@@ -43,7 +43,7 @@ final class Settings extends MethodForm
 		];
 	}
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$module = $this->getSettingsModule();
 		$mname = $module->getName();
