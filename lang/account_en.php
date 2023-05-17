@@ -151,12 +151,8 @@ The %2$s Team',
 	'div_user_textual_settings' => 'Textual settings',
 
 	# 7.0.0
-	'mt_account_settings' => 'Settings',
 	'mt_account_allsettings' => 'All Settings',
 	'mt_account_config' => 'Config',
-	'msg_settings_saved' => 'Your settings for %s have been changed:<br/>%s',
-
 	'btn_save_settings' => 'Save %s settings',
-
 	'info_all_settings' => 'Here you can control your settings for all modules. Almost every setting has ACL visibility options to control what to show in your profile',
 ];
