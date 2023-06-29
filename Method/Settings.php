@@ -35,7 +35,12 @@ final class Settings extends MethodForm
 		return false;
 	}
 
-	public function gdoParameters(): array
+    public function getMethodTitle(): string
+    {
+        return t('mt_account_settings', [$this->getSettingsModule()->gdoHumanName()]);
+    }
+
+    public function gdoParameters(): array
 	{
 		return [
 			GDT_Module::make('module')->installed()->notNull(),
@@ -48,14 +53,14 @@ final class Settings extends MethodForm
 		$module = $this->getSettingsModule();
 		$mname = $module->getName();
 
-		$form->titleNone();
+//		$form->titleNone();
 		$form->noFocus();
 		$form->addFields(
 			...array_filter(array_values($module->getSettingsCacheContainers()), [
 			$this,
 			'filterHiddenSettings',
 		]));
-		$form->addField(GDT_AntiCSRF::make()->fixed());
+//		$form->addField(GDT_AntiCSRF::make()->fixed());
 		$form->actions()->addFields(
 			GDT_Submit::make("save_{$mname}")->label('btn_save_settings', [
 				$mname,
