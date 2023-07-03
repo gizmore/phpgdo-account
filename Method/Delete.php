@@ -27,7 +27,9 @@ use GDO\User\GDO_User;
 final class Delete extends MethodForm
 {
 
-	public function isEnabled(): bool { return Module_Account::instance()->cfgFeatureDeletion(); }
+    public function isCLI(): bool { return true; }
+
+    public function isEnabled(): bool { return Module_Account::instance()->cfgFeatureDeletion(); }
 
 	public function getUserType(): ?string { return 'member'; }
 
