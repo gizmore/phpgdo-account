@@ -11,6 +11,7 @@ use GDO\Form\GDT_Submit;
 use GDO\Form\MethodForm;
 use GDO\Language\Trans;
 use GDO\UI\GDT_Accordeon;
+use GDO\UI\GDT_Divider;
 use GDO\UI\TextStyle;
 use GDO\User\GDO_User;
 
@@ -107,7 +108,7 @@ final class Settings extends MethodForm
 
 	public function filterHiddenSettings(GDT $gdt): bool
 	{
-		return !$gdt->isHidden();
+		return (!$gdt->isHidden()) && (!$gdt instanceof GDT_Divider);
 	}
 
 	public function saveSettings()
@@ -117,11 +118,11 @@ final class Settings extends MethodForm
 		$user = GDO_User::current();
 		foreach ($module->getSettingsCache() as $key => $gdt)
 		{
+            $old = $gdt->var;
+            $new = $gdt->getVar();
 			/** @var $gdt GDT * */
-			if ($gdt->isWriteable() && $gdt->hasChanged())
+			if ($gdt->isWriteable() && ($old !== $new))
 			{
-				$old = $gdt->var;
-				$new = $gdt->getVar();
 				$module->saveUserSetting($user, $key, $new);
 				$messages[] = t('msg_modulevar_changed',
 					[
