@@ -45,7 +45,6 @@ return [
 	'msg_email_fmt_now_html' => 'Il Suo formato e-Mail é ora HTML.',
 	'msg_email_fmt_now_text' => 'Il Suo formato e-Mail é ora PLAINTEXT.',
 	'err_demo_wait' => 'Prego attenda %s prima di cambiare le sue impostazioni!',
-	'email_fmt' => 'Formato e-Mail',
 	# #########################################################
 	'mt_account_delete' => 'Cancella account',
 	'box_info_deletion' => 'Puó scegliere di disattivare il suo account e preservando la sua identitá su %s,

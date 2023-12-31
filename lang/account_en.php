@@ -46,7 +46,6 @@ return [
 	'msg_email_fmt_now_html' => 'Your preferred E-Mail format is now set to HTML.',
 	'msg_email_fmt_now_text' => 'Your preferred E-Mail format is now set to PLAINTEXT.',
 	'err_demo_wait' => 'You have to wait %s before you can change your demographic options again.',
-	'email_fmt' => 'E-Mail Format',
 	##########################################################
 	'mt_account_delete' => 'Delete Account',
 	'box_info_deletion' => 'You can choose between disabling your account, and preserving your identity on %s,
@@ -119,27 +118,6 @@ If the information is correct, you can accept these settings by visiting this li
 Otherwise, please ignore this E-Mail and try again anytime.
 	
 Kind Regards
-The %2$s Team',
-##########################################################
-	'mail_subj_account_alert' => '[%s] Access Alert',
-	'mail_body_account_alert' => '
-Hello %s,
-	
-There has been access to your %s account with an unusual configuration.
-	
-UserAgent: %s
-IP Address: %s
-Hostname/ISP: %s
-	
-You can check your access history here.
-	
-%s
-	
-You can toggle your access alerts here.
-	
-%s
-	
-Kind Regards,
 The %2$s Team',
 ##########################################################
 	'table_account_access' => '%s IPs logged for you',
