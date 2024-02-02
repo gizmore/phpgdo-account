@@ -56,6 +56,7 @@ final class Settings extends MethodForm
 
 //		$form->titleNone();
 		$form->noFocus();
+        $this->initUserSettingValues();
 		$form->addFields(
 			...array_filter(array_values($module->getSettingsCacheContainers()), [
 			$this,
@@ -71,7 +72,6 @@ final class Settings extends MethodForm
 					'saveSettings',
 				]));
 
-		$this->initUserSettingValues();
 	}
 
 	public function getSettingsModule(): GDO_Module
