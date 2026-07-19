@@ -19,7 +19,7 @@ final class AjaxSettings extends MethodAjax
 
 	public function isUserRequired(): bool
 	{
-		return true;
+		return false;
 	}
 
 	public function execute(): GDT
