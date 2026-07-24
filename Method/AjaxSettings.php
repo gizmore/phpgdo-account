@@ -5,6 +5,7 @@ use GDO\Core\GDT;
 use GDO\Core\GDT_JSON;
 use GDO\Core\MethodAjax;
 use GDO\Core\ModuleLoader;
+use GDO\UI\GDT_Error;
 use GDO\User\GDO_User;
 
 /**
@@ -30,7 +31,6 @@ final class AjaxSettings extends MethodAjax
 		foreach ($modules as $module)
 		{
 			$modulename = $module->getName();
-
 			foreach ($module->getSettingsCache() as $gdt)
 			{
 				$gdt = $module->userSetting($user, $gdt->getName()); # to assign current user to gdt
