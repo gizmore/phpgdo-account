@@ -108,7 +108,7 @@ final class Settings extends MethodForm
 
 	public function filterHiddenSettings(GDT $gdt): bool
 	{
-		return (!$gdt->isHidden()) && (!$gdt instanceof GDT_Divider);
+		return ($gdt->isSerializable()) && (!$gdt instanceof GDT_Divider);
 	}
 
 	public function saveSettings()
