@@ -31,6 +31,7 @@ final class AjaxSettings extends MethodAjax
 		foreach ($modules as $module)
 		{
 			$modulename = $module->getName();
+			$moduleSort = (int)$module->gdoValue('module_sort');
 			foreach ($module->getSettingsCache() as $gdt)
 			{
 				$gdt = $module->userSetting($user, $gdt->getName()); # to assign current user to gdt
@@ -40,6 +41,7 @@ final class AjaxSettings extends MethodAjax
 					$json[$modulename] = $json[$modulename] ?? [];
 					$json[$modulename][$gdt->getName()] = [
 						'module' => $modulename,
+						'module_sort' => $moduleSort,
 						'name' => $gdt->getName(),
 						'label' => $gdt->labelKey ?? $gdt->getName(),
 						'type' => $gdt->gdoClassName(),
