@@ -36,10 +36,16 @@ final class AjaxSettings extends MethodAjax
 				$gdt = $module->userSetting($user, $gdt->getName()); # to assign current user to gdt
 				if ($gdt->isSerializable() && (!$gdt->isHidden()))
 				{
+					$acl = $module->getUserConfigACLField($gdt->getName(), $user);
 					$json[$modulename] = $json[$modulename] ?? [];
 					$json[$modulename][$gdt->getName()] = [
+						'module' => $modulename,
+						'name' => $gdt->getName(),
+						'label' => $gdt->labelKey ?? $gdt->getName(),
 						'type' => $gdt->gdoClassName(),
 						'options' => $gdt->configJSON(),
+						'writeable' => $gdt->isWriteable(),
+						'acl' => $acl ? $acl->aclRelation->getVar() : null,
 					];
 				}
 			}
