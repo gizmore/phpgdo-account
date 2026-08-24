@@ -108,7 +108,9 @@ final class Settings extends MethodForm
 
 	public function filterHiddenSettings(GDT $gdt): bool
 	{
-		return ($gdt->isSerializable()) && (!$gdt instanceof GDT_Divider);
+		// Account settings are the user's own mutable preferences. Module config
+		// is intentionally not an account form, even when it is serializable.
+		return $gdt->isWriteable() && $gdt->isSerializable() && (!$gdt instanceof GDT_Divider);
 	}
 
 	public function saveSettings()
