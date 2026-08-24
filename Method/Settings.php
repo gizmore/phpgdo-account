@@ -4,6 +4,7 @@ namespace GDO\Account\Method;
 use GDO\Core\GDO_Module;
 use GDO\Core\GDT;
 use GDO\Core\GDT_Checkbox;
+use GDO\Core\GDT_Field;
 use GDO\Core\GDT_Module;
 use GDO\Form\GDT_AntiCSRF;
 use GDO\Form\GDT_Form;
@@ -120,7 +121,11 @@ final class Settings extends MethodForm
 		$user = GDO_User::current();
 		foreach ($module->getSettingsCache() as $key => $gdt)
 		{
-            $old = $gdt->var;
+			if (!$gdt instanceof GDT_Field)
+			{
+				continue;
+			}
+			$old = $gdt->var;
             $new = $gdt->getVar();
 			/** @var $gdt GDT * */
 			if ($gdt->isWriteable() && ($old !== $new))
