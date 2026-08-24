@@ -46,20 +46,20 @@ return [
 	'msg_email_fmt_now_text' => 'Ihr bevorzugtes E-Mail Format ist nun PLAINTEXT.',
 	'err_demo_wait' => 'Bitte warten Sie %s bevor Sie ihre Einstellungen ändern.',
 	# #########################################################
-	'mt_account_delete' => 'Delete Account',
-	'box_info_deletion' => 'You can choose between disabling your account, and preserving your identity on %s,
-Or completely prune your account and all information associated.
-If you like, you can leave us a message with feedback on why you wanted to leave.',
-	'btn_delete_account' => 'Mark Deleted',
-	'btn_prune_account' => 'Prune Account',
-	'msg_account_marked_deleted' => 'Your account has been marked as deleted.',
-	'msg_account_pruned' => 'Your account has been wiped from the database.',
+	'mt_account_delete' => 'Konto löschen',
+	'box_info_deletion' => 'Du kannst dein Konto deaktivieren und deine Identität auf %s bewahren,
+oder dein Konto mit allen zugehörigen Informationen vollständig entfernen.
+Wenn du möchtest, kannst du uns eine Nachricht hinterlassen, warum du gehen möchtest.',
+	'btn_delete_account' => 'Als gelöscht markieren',
+	'btn_prune_account' => 'Konto vollständig entfernen',
+	'msg_account_marked_deleted' => 'Dein Konto wurde als gelöscht markiert.',
+	'msg_account_pruned' => 'Dein Konto wurde aus der Datenbank entfernt.',
 	# #########################################################
-	'mt_change_mail' => 'Change E-Mail',
-	'err_email_retype' => 'Please recheck your E-Mail, as you did not retype it correctly.',
-	'btn_changemail' => 'Change E-Mail',
+	'mt_change_mail' => 'E-Mail ändern',
+	'err_email_retype' => 'Bitte prüfe deine E-Mail-Adresse erneut; die Wiederholung stimmt nicht überein.',
+	'btn_changemail' => 'E-Mail ändern',
 	# #########################################################
-	'mail_subj_account_deleted' => '[%s] %s Account Deletion',
+	'mail_subj_account_deleted' => '[%s] %s Kontolöschung',
 	'mail_body_account_deleted' => '
 Hello %s,
 
@@ -72,7 +72,7 @@ He has left the following note: (may be empty)
 Kind Regards
 The %s Script',
 	# #########################################################
-	'mail_subj_chmail_a' => '[%s] Change E-Mail',
+	'mail_subj_chmail_a' => '[%s] E-Mail ändern',
 	'mail_body_chmail_a' => '
 Hello %s,
 
@@ -85,7 +85,7 @@ If you want to accept this change, please visit the following link.
 Kind Regards
 The %2$s Team',
 	# #########################################################
-	'mail_subj_chmail_b' => '[%s] Confirm E-Mail',
+	'mail_subj_chmail_b' => '[%s] E-Mail bestätigen',
 	'mail_body_chmail_b' => '
 Hello %s,
 
@@ -98,7 +98,7 @@ If you want to accept the change, please visit the following link.
 Kind Regards,
 The %2$s Team.',
 	# #########################################################
-	'mail_subj_demochange' => '[%s] Change Demography',
+	'mail_subj_demochange' => '[%s] Demografische Änderung',
 	'mail_body_demochange' => '
 Hello %s,
 
@@ -120,6 +120,7 @@ Kind Regards
 The %2$s Team',
 	# #########################################################
 	'confirm_account_prune' => 'Möchten Sie Ihr Konto wirklich vollständig entfernen? Dies lässt sich nicht rückgängig machen!',
+	'table_account_access' => '%s für Sie protokollierte IP-Adressen',
 	'confirm_account_delete' => 'Möchten Sie Ihr Konto wirklich als gelöscht markieren? Dies ist nicht endgültig. Ein Mitarbeiter kann Ihr Konto später wieder reaktivieren.',
 	'msg_mail_changed' => 'Ihre Email wurde zu %s geändert.',
 	'md_account_access' => 'Sehen Sie sich Ihre letzten Authentifizierungen an.',
@@ -132,7 +133,7 @@ The %2$s Team',
 	'mt_account_config' => 'Konfiguration',
 	'msg_settings_saved' => 'Ihre Einstellungen für das %s Modul wurden übernommen:<br/>%s',
 
-	'btn_save_settings' => 'Save %s settings',
+	'btn_save_settings' => '%s-Einstellungen speichern',
 
-	'info_all_settings' => 'Here you can control your settings for all modules. Almost every setting has ACL visibility options to control what to show in your profile',
+	'info_all_settings' => 'Hier kannst du deine Einstellungen für alle Module verwalten. Fast jede Einstellung bietet ACL-Sichtbarkeiten, mit denen du steuerst, was im Profil sichtbar ist.',
 ];
