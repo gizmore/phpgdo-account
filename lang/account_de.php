@@ -61,63 +61,63 @@ Wenn du möchtest, kannst du uns eine Nachricht hinterlassen, warum du gehen mö
 	# #########################################################
 	'mail_subj_account_deleted' => '[%s] %s Kontolöschung',
 	'mail_body_account_deleted' => '
-Hello %s,
+Hallo %s,
 
-The user %s has just executed the following operation on his account: %s.
+Der Benutzer %s hat gerade die folgende Aktion für sein Konto ausgeführt: %s.
 
-He has left the following note: (may be empty)
+Er hat folgende Notiz hinterlassen (kann leer sein):
 ----------------------------------------------
 %s
 ----------------------------------------------
-Kind Regards
-The %s Script',
+Viele Grüße
+Das %s-System',
 	# #########################################################
 	'mail_subj_chmail_a' => '[%s] E-Mail ändern',
 	'mail_body_chmail_a' => '
-Hello %s,
+Hallo %s,
 
-You want to change your E-Mail on %s to your new Address: <b>%s</b>.
+Sie möchten Ihre E-Mail-Adresse auf %s in <b>%s</b> ändern.
 
-If you want to accept this change, please visit the following link.
+Um diese Änderung zu bestätigen, besuchen Sie bitte den folgenden Link.
 
 %s
 
-Kind Regards
-The %2$s Team',
+Viele Grüße
+Das %2$s-Team',
 	# #########################################################
 	'mail_subj_chmail_b' => '[%s] E-Mail bestätigen',
 	'mail_body_chmail_b' => '
-Hello %s,
+Hallo %s,
 
-You want to change your E-Mail on %s to this one (%s).
+Sie möchten Ihre E-Mail-Adresse auf %s in %s ändern.
 
-If you want to accept the change, please visit the following link.
+Um diese Änderung zu bestätigen, besuchen Sie bitte den folgenden Link.
 
 %s
 
-Kind Regards,
-The %2$s Team.',
+Viele Grüße
+Das %2$s-Team.',
 	# #########################################################
 	'mail_subj_demochange' => '[%s] Demografische Änderung',
 	'mail_body_demochange' => '
-Hello %s,
+Hallo %s,
 
-You want to change your demographic settings on %s.
-Please check if the following settings are correct,
-because you can only change them once every %s.
+Sie möchten Ihre demografischen Einstellungen auf %s ändern.
+Bitte prüfen Sie, ob die folgenden Angaben korrekt sind,
+weil Sie diese nur einmal alle %s ändern können.
 
-Country: %s
-Language: %s
-Gender: %s
+Land: %s
+Sprache: %s
+Geschlecht: %s
 
-If the information is correct, you can accept these settings by visiting this link.
+Wenn die Angaben korrekt sind, können Sie sie über diesen Link bestätigen.
 
 %s
 
-Otherwise, please ignore this E-Mail and try again anytime.
+Andernfalls ignorieren Sie diese E-Mail bitte und versuchen es später erneut.
 
-Kind Regards
-The %2$s Team',
+Viele Grüße
+Das %2$s-Team',
 	# #########################################################
 	'confirm_account_prune' => 'Möchten Sie Ihr Konto wirklich vollständig entfernen? Dies lässt sich nicht rückgängig machen!',
 	'table_account_access' => '%s für Sie protokollierte IP-Adressen',
