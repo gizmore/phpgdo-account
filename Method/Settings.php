@@ -15,6 +15,7 @@ use GDO\UI\GDT_Accordeon;
 use GDO\UI\GDT_Divider;
 use GDO\UI\TextStyle;
 use GDO\User\GDO_User;
+use GDO\User\GDT_User;
 
 /**
  * Offers users to change and view their settings for a single module.
@@ -42,12 +43,25 @@ final class Settings extends MethodForm
         return t('mt_account_settings', [$this->getSettingsModule()->gdoHumanName()]);
     }
 
-    public function gdoParameters(): array
+	public function gdoParameters(): array
 	{
 		return [
 			GDT_Module::make('module')->installed()->notNull(),
+			GDT_User::make('user')->deleted(),
 			GDT_Checkbox::make('opened')->initial('0'),
 		];
+	}
+
+	public function hasPermission(GDO_User $user, string &$error, array &$args): bool
+	{
+		$target = $this->gdoParameterValue('user');
+		if (!$target || $target->getID() === $user->getID() || $user->isStaff())
+		{
+			return true;
+		}
+		$error = 'err_permission_required';
+		$args = [];
+		return false;
 	}
 
 	protected function createForm(GDT_Form $form): void
@@ -58,11 +72,7 @@ final class Settings extends MethodForm
 //		$form->titleNone();
 		$form->noFocus();
         $this->initUserSettingValues();
-		$form->addFields(
-			...array_filter(array_values($module->getSettingsCacheContainers()), [
-			$this,
-			'filterHiddenSettings',
-		]));
+		$form->addFields(...$this->getFormFields($module));
 //		$form->addField(GDT_AntiCSRF::make()->fixed());
 		$form->actions()->addFields(
 			GDT_Submit::make("save_{$mname}")->label('btn_save_settings', [
@@ -80,13 +90,19 @@ final class Settings extends MethodForm
 		return $this->gdoParameterValue('module');
 	}
 
+	public function getSettingsUser(): GDO_User
+	{
+		return $this->gdoParameterValue('user') ?: GDO_User::current();
+	}
+
 	private function initUserSettingValues(): void
 	{
 		$module = $this->getSettingsModule();
+		$user = $this->getSettingsUser();
 		foreach ($module->getSettingsCache() as $gdt)
 		{
-			$gdt = $module->setting($gdt->name);
-			if ($acl = $module->getUserConfigACLField($gdt->name, GDO_User::current()))
+			$gdt = $module->userSetting($user, $gdt->name);
+			if ($acl = $module->getUserConfigACLField($gdt->name, $user))
 			{
 				$acl->setupLabels($gdt);
 			}
@@ -109,16 +125,54 @@ final class Settings extends MethodForm
 
 	public function filterHiddenSettings(GDT $gdt): bool
 	{
-		// Account settings are the user's own mutable preferences. Module config
-		// is intentionally not an account form, even when it is serializable.
-		return $gdt->isWriteable() && $gdt->isSerializable() && (!$gdt instanceof GDT_Divider);
+		return $gdt->isSerializable() && (!$gdt instanceof GDT_Divider) && $gdt->isWriteable();
+	}
+
+	/**
+	 * Staff get editable copies of read-only config fields. Never alter the
+	 * module's cached schema objects: a long-running process could otherwise
+	 * leak staff writeability into a later regular-user request.
+	 *
+	 * @return GDT[]
+	 */
+	private function getFormFields(GDO_Module $module): array
+	{
+		$fields = array_filter(array_values($module->getSettingsCacheContainers()), [$this, 'filterHiddenSettings']);
+		if (!GDO_User::current()->isStaff())
+		{
+			return $fields;
+		}
+
+		# Config fields are normally read-only user settings. Add their target-user
+		# values explicitly for staff; do not alter schema fields held in the module cache.
+		foreach ($module->getSettingsConfigs() as $schema)
+		{
+			if ($schema instanceof GDT_Field && $schema->isSerializable())
+			{
+				$setting = $module->userSetting($this->getSettingsUser(), $schema->getName());
+				$fields[] = (clone $setting)->writeable(true);
+			}
+		}
+		# Module config is separate from per-user config. It is deliberately
+		# available only to staff, and Account itself is a useful example: it has
+		# no user settings but does have feature switches in getConfig().
+		$names = array_map(static fn(GDT $gdt): string => $gdt->getName(), $fields);
+		foreach ($module->getConfig() as $schema)
+		{
+			if ($schema instanceof GDT_Field && $schema->isSerializable() && !in_array($schema->getName(), $names, true))
+			{
+				$fields[] = (clone $module->getConfigColumn($schema->getName()))->writeable(true);
+			}
+		}
+		return $fields;
 	}
 
 	public function saveSettings()
 	{
 		$messages = [];
 		$module = $this->getSettingsModule();
-		$user = GDO_User::current();
+		$user = $this->getSettingsUser();
+		$form = $this->getForm();
 		foreach ($module->getSettingsCache() as $key => $gdt)
 		{
 			if (!$gdt instanceof GDT_Field)
@@ -126,9 +180,10 @@ final class Settings extends MethodForm
 				continue;
 			}
 			$old = $gdt->var;
-            $new = $gdt->getVar();
+			$formField = $form->getField($key) ?: $gdt;
+            $new = $formField->getVar();
 			/** @var $gdt GDT * */
-			if ($gdt->isWriteable() && ($old !== $new))
+			if (($gdt->isWriteable() || GDO_User::current()->isStaff()) && ($old !== $new))
 			{
 				$module->saveUserSetting($user, $key, $new);
 				$messages[] = t('msg_modulevar_changed',
@@ -152,6 +207,31 @@ final class Settings extends MethodForm
 							TextStyle::italic($aclr->displayVar($aclr->getVar())),
 						]);
 					$module->saveUserSettingACLRelation($user, $key, $aclr->getVar());
+				}
+			}
+		}
+
+		# Staff may also change module-level config fields shown above.
+		if (GDO_User::current()->isStaff())
+		{
+			foreach ($module->getConfig() as $schema)
+			{
+				$key = $schema->getName();
+				if ((!($schema instanceof GDT_Field)) || (!$field = $form->getField($key)))
+				{
+					continue;
+				}
+				$config = $module->getConfigColumn($key);
+				$old = $config->getVar();
+				$new = $field->getVar();
+				if ($old !== $new)
+				{
+					$module->saveConfigValue($key, $new);
+					$messages[] = t('msg_modulevar_changed', [
+						TextStyle::bold($config->renderLabel()),
+						TextStyle::italic($config->displayVar($old)),
+						TextStyle::italic($config->displayVar($new)),
+					]);
 				}
 			}
 		}

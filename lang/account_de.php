@@ -7,6 +7,7 @@ return [
 	'link_account_form' => 'Ihr Konto',
 	'link_account_delete' => 'Konto Löschen',
 	'link_settings' => 'Einstellungen',
+	'link_account_edit_user' => 'Alle Einstellungen bearbeiten',
 	'prune' => 'Entfernen',
 	# #########################################################
 	'cfg_adult_age' => 'Erwachsenenalter',
@@ -24,6 +25,8 @@ return [
 	# #########################################################
 	'box_content_account_settings' => 'Hier finden Sie alle Ihre Einstellungen.',
 	'mt_account_settings' => '%s Einstellungen',
+	'mt_account_edit_user' => 'Einstellungen für %s bearbeiten',
+	'info_account_edit_user' => 'Alle verfügbaren Einstellungen für %s bearbeiten.',
 	'div_user_settings' => 'Persönliche %s-Einstellungen',
 	'div_variables' => 'Ihre %s Variablen',
 	# #########################################################

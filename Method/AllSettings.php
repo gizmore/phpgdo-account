@@ -10,6 +10,7 @@ use GDO\Core\GDT_Tuple;
 use GDO\Core\Method;
 use GDO\Core\ModuleLoader;
 use GDO\UI\GDT_Panel;
+use GDO\User\GDO_User;
 
 /**
  * Show settings for all modules.
@@ -49,7 +50,7 @@ final class AllSettings extends Method
 		$response->addField(GDT_Panel::make()->text('info_all_settings'));
 		foreach ($this->getModules() as $module)
 		{
-			if ($module->hasUserSettings())
+			if ($this->hasEditableSettings($module))
 			{
 				$inputs = $this->getInputs();
 				$inputs['module'] = $module->getModuleName();
@@ -73,6 +74,12 @@ final class AllSettings extends Method
 			return strcasecmp($a->renderName(), $b->renderName());
 		});
 		return $modules;
+	}
+
+	private function hasEditableSettings(GDO_Module $module): bool
+	{
+		return $module->hasUserSettings() ||
+			(GDO_User::current()->isStaff() && !empty($module->getSettingsConfigs()));
 	}
 
 }

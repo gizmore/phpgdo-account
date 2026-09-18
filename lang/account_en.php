@@ -7,6 +7,7 @@ return [
 	'link_account_form' => 'Account',
 	'link_account_delete' => 'Delete',
 	'link_settings' => 'Settings',
+	'link_account_edit_user' => 'Edit all settings',
 	'prune' => 'Prune',
 	##########################################################
 	'cfg_adult_age' => 'Adult age',
@@ -24,6 +25,8 @@ return [
 	##########################################################
 	'box_content_account_settings' => 'Here you find settings for all enabled modules with configuration variables.<br/>Note that we distingush variables which are just informative for you, and settings which you can toggle.',
 	'mt_account_settings' => '%s Settings',
+	'mt_account_edit_user' => 'Edit settings for %s',
+	'info_account_edit_user' => 'Edit all available settings for %s.',
 	'div_user_settings' => 'Personal %s settings',
 	'div_variables' => 'Your %s variables',
 	'msg_settings_saved' => 'Your settings for the %s module have been saved.<br/>%s',
