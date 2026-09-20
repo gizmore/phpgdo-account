@@ -54,7 +54,7 @@ final class EditUser extends Method
 				$inputs = $this->getInputs();
 				$inputs['module'] = $module->getModuleName();
 				$inputs['user'] = $user->getID();
-				$method = Settings::make();
+				$method = Settings::make()->allowAll();
 				$response->addField(GDT_Method::make()->method($method)->inputs($inputs)->noChecks()->execute());
 			}
 		}
@@ -63,7 +63,7 @@ final class EditUser extends Method
 
 	private function hasEditableSettings(GDO_Module $module): bool
 	{
-		return $module->hasUserSettings();
+		return $module->hasUserSettings() || $module->hasUserConfig();
 	}
 
 	/** @return GDO_Module[] */

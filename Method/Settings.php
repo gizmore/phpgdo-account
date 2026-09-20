@@ -4,6 +4,7 @@ namespace GDO\Account\Method;
 use GDO\Core\GDO_Module;
 use GDO\Core\GDT;
 use GDO\Core\GDT_Checkbox;
+use GDO\Core\GDT_DBField;
 use GDO\Core\GDT_Field;
 use GDO\Core\GDT_Module;
 use GDO\Form\GDT_AntiCSRF;
@@ -27,6 +28,13 @@ use GDO\User\GDT_User;
  */
 final class Settings extends MethodForm
 {
+    private bool $allowAll = false;
+
+    public function allowAll(bool $allowAll=true): self
+    {
+        $this->allowAll = $allowAll;
+        return $this;
+    }
 
 	public function isShownInSitemap(): bool
 	{
@@ -55,7 +63,7 @@ final class Settings extends MethodForm
 	public function hasPermission(GDO_User $user, string &$error, array &$args): bool
 	{
 		$target = $this->gdoParameterValue('user');
-		if (!$target || $target->getID() === $user->getID() || $user->isStaff())
+		if (!$target || $target === $user || $user->isStaff())
 		{
 			return true;
 		}
@@ -125,13 +133,27 @@ final class Settings extends MethodForm
 
 	public function filterHiddenSettings(GDT $gdt): bool
 	{
-		return $gdt->isSerializable() && (!$gdt instanceof GDT_Divider) && $gdt->isWriteable();
+		return $gdt->isSerializable() && (GDO_User::current()->isStaff() || $gdt->isWriteable());
 	}
 
 	/** @return GDT[] */
 	private function getFormFields(GDO_Module $module): array
 	{
-		return array_filter(array_values($module->getSettingsCacheContainers()), [$this, 'filterHiddenSettings']);
+		$fields = array_values($module->getSettingsCacheContainers());
+		// Account.EditUser explicitly opts into the complete staff view. Keep
+		// hidden user-config fields out of ordinary settings, but expose their
+		// read-only form value to staff (for example Net.last_ip).
+		if ($this->allowAll)
+		{
+			foreach ($fields as $field)
+			{
+				if ($field->isHidden())
+				{
+					$field->hidden(false);
+				}
+			}
+		}
+		return array_filter($fields, [$this, 'filterHiddenSettings']);
 	}
 
 	public function saveSettings()
@@ -142,7 +164,7 @@ final class Settings extends MethodForm
 		$form = $this->getForm();
 		foreach ($module->getSettingsCache() as $key => $gdt)
 		{
-			if (!$gdt instanceof GDT_Field)
+			if (!$gdt instanceof GDT_DBField)
 			{
 				continue;
 			}
@@ -181,14 +203,14 @@ final class Settings extends MethodForm
 		# Staff may also change module-level config fields shown above.
 		if (GDO_User::current()->isStaff())
 		{
-			foreach ($module->getConfig() as $schema)
+			foreach ($module->getUserConfig() as $field)
 			{
-				$key = $schema->getName();
-				if ((!($schema instanceof GDT_Field)) || (!$field = $form->getField($key)))
+				if ((!($field instanceof GDT_DBField)))
 				{
 					continue;
 				}
-				$config = $module->getConfigColumn($key);
+                $key = $field->getName();
+                $config = $module->userSetting($user, $key);
 				$old = $config->getVar();
 				$new = $field->getVar();
 				if ($old !== $new)
