@@ -78,8 +78,7 @@ final class AllSettings extends Method
 
 	private function hasEditableSettings(GDO_Module $module): bool
 	{
-		return $module->hasUserSettings() ||
-			(GDO_User::current()->isStaff() && !empty($module->getSettingsConfigs()));
+		return $module->hasUserSettings();
 	}
 
 }

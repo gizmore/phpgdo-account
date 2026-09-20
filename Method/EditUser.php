@@ -63,7 +63,7 @@ final class EditUser extends Method
 
 	private function hasEditableSettings(GDO_Module $module): bool
 	{
-		return $module->hasUserSettings() || !empty($module->getSettingsConfigs());
+		return $module->hasUserSettings();
 	}
 
 	/** @return GDO_Module[] */

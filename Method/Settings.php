@@ -128,43 +128,10 @@ final class Settings extends MethodForm
 		return $gdt->isSerializable() && (!$gdt instanceof GDT_Divider) && $gdt->isWriteable();
 	}
 
-	/**
-	 * Staff get editable copies of read-only config fields. Never alter the
-	 * module's cached schema objects: a long-running process could otherwise
-	 * leak staff writeability into a later regular-user request.
-	 *
-	 * @return GDT[]
-	 */
+	/** @return GDT[] */
 	private function getFormFields(GDO_Module $module): array
 	{
-		$fields = array_filter(array_values($module->getSettingsCacheContainers()), [$this, 'filterHiddenSettings']);
-		if (!GDO_User::current()->isStaff())
-		{
-			return $fields;
-		}
-
-		# Config fields are normally read-only user settings. Add their target-user
-		# values explicitly for staff; do not alter schema fields held in the module cache.
-		foreach ($module->getSettingsConfigs() as $schema)
-		{
-			if ($schema instanceof GDT_Field && $schema->isSerializable())
-			{
-				$setting = $module->userSetting($this->getSettingsUser(), $schema->getName());
-				$fields[] = (clone $setting)->writeable(true);
-			}
-		}
-		# Module config is separate from per-user config. It is deliberately
-		# available only to staff, and Account itself is a useful example: it has
-		# no user settings but does have feature switches in getConfig().
-		$names = array_map(static fn(GDT $gdt): string => $gdt->getName(), $fields);
-		foreach ($module->getConfig() as $schema)
-		{
-			if ($schema instanceof GDT_Field && $schema->isSerializable() && !in_array($schema->getName(), $names, true))
-			{
-				$fields[] = (clone $module->getConfigColumn($schema->getName()))->writeable(true);
-			}
-		}
-		return $fields;
+		return array_filter(array_values($module->getSettingsCacheContainers()), [$this, 'filterHiddenSettings']);
 	}
 
 	public function saveSettings()
