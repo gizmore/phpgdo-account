@@ -103,11 +103,11 @@ final class Module_Account extends GDO_Module
 	public function renderAccountBar()
 	{
 		$nav = $this->getTopNav();
-		$nav->addField(GDT_Link::make('link_settings')->href(href('Account', 'AllSettings')));
+		$nav->addField(GDT_Link::make('link_settings')->href(href('Account', 'AllSettings'))->icon('settings'));
 		GDT_Hook::callHook('AccountBar', $nav);
 		if ($this->cfgFeatureDeletion())
 		{
-			$nav->addField(GDT_Link::make('mt_account_delete')->href(href('Account', 'Delete')));
+			$nav->addField(GDT_Link::make('mt_account_delete')->href(href('Account', 'Delete'))->icon('user'));
 		}
 	}
 
